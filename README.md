@@ -3,7 +3,6 @@
 ## Extensão Livereload para Google Chrome
 - [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=pt-BR "LiveReload")
 <br/>
-<br/>
 
 ## 🚀 Iniciando o projeto
 - Instalar a extensão LiveReload
@@ -12,7 +11,6 @@
     - `gulp`
 <br/>
 <br/>
-
 ## 📁 Estrutura de pastas
 Sempre que um arquivo é modificado dentro de `./src` é executada uma rotina no gulp que encaminha os arquivos de
 saída para `./dist`. Ou seja, os arquivos de produção estarão em `./dist`. 
