@@ -10,7 +10,6 @@
     - `npm install` (aguarde a conclusão e execute o comando abaixo)
     - `gulp`
 <br/>
-<br/>
 
 ## 📁 Estrutura de pastas
 Sempre que um arquivo é modificado dentro de `./src` é executada uma rotina no gulp que encaminha os arquivos de
