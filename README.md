@@ -33,4 +33,5 @@ Para facilitar o trabalho, é recomendável que os arquivos de saída sejam inse
 <br/><br/>
 ![Exemplo de uso](https://i.postimg.cc/DZDGYpKY/exemploreadme.jpg)
 <br/>
+<br/>
 Dessa forma, sempre que você alterar o arquivo localmente, o **Livereload** irá atualizar a página e o **Browsersync** irá servi-lo atualizado.
