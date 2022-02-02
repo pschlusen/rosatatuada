@@ -7,7 +7,6 @@ const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
 
 
- 
 const paths = { 
     common: {
         dest: "./dest/"
