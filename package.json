@@ -20,7 +20,8 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
-    "gulp-livereload": "^4.0.2"
+    "gulp-livereload": "^4.0.2",
+    "gulp-uglify": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
@@ -28,7 +29,7 @@
     "browser-sync": "^2.27.7",
     "gulp-babel": "^8.0.0"
   },
-  "presets": ["@babel/preset-env"]
-  
-  
+  "presets": [
+    "@babel/preset-env"
+  ]
 }
