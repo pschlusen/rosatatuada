@@ -1,0 +1,176 @@
+<script type="application/ld+json">
+		{"@context":"http://schema.org",
+		"@type":"Organization",
+		"address": {
+		"@type": "PostalAddress",
+		"addressLocality": "{{Config.General.Store.Field19}}",
+		"postalCode": "{{Config.General.Store.Field18}}",
+		"streetAddress": "{{Config.General.Store.Field17}}"
+		},
+		"url":"{{PageInfo.CanonicalLink}}",
+		"logo":"{{ Config.General.Store.Field6 | sharedthemepath }}",
+		"email":"{{Config.General.Store.Email}}",
+		"sameAs":[
+		{% if Config.General.Store.Field14 != '' %}
+		"{{Config.General.Store.Field14}}",
+		{% endif %}
+		{% if Config.General.Store.Field15 != '' %}
+		"{{Config.General.Store.Field15}}",
+		{% endif %}
+		{% if Config.General.Store.Field16 != '' %}
+		"{{Config.General.Store.Field16}}"
+		{% endif %}
+		],
+		"contactPoint":[{"@type":"ContactPoint",
+		"Telephone":"{{Config.General.Store.Phone}}",
+		"contactType":
+		"customer service",
+		"areaServed":"BR"}]}
+</script>
+
+
+<script src="http://localhost:3000/teste.js"></script>
+{% comment %}
+cl - col left
+cc - col center
+cr - col right
+
+bf - banner fake
+{% endcomment %}
+
+{% comment %}
+Estrutura da página inicial
+{% endcomment %}
+
+{% assign showNavByCategory = true %}
+
+{% assign modalNewsletter = true %}
+
+
+<div class="banners fullbanner">
+{% comment %}
+	{% if Request.IsMobileDevice == true %}
+	{% area(Name="BannerMobile") %}
+	{% else %}
+		{% area(name="Fullbanner") %}	
+	{% endif %}
+{% endcomment %}
+	
+{% banner_slick(PositionId=41) %}
+</div>
+
+<div class="condicoes-gerais no-small">
+	<div class="wrapper row">
+		{% if Config.General.Store.Field10 != null %}
+		{% comment %}
+		<div class="condicao col-md-4 col-12">
+			<i class="fas fa-truck"></i>
+			<span>{{ Config.General.Store.Field10 }}</span>
+		</div>
+		{% endcomment %}
+		{% endif %}
+		{% if Config.General.Store.Field12 != null %}
+		<div class="condicao col-md-6  col-12">
+			<i class="fas fa-sync-alt"></i>
+			<span>{{ Config.General.Store.Field12 }}</span>
+		</div>
+		{% endif %}
+		{% if Config.General.Store.Field11 != null %}
+		<div class="condicao col-md-6  col-12">
+			<i class="fas fa-credit-card"></i>
+			<span>{{ Config.General.Store.Field11 }}</span>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+<div class="wrapper">
+
+	<div class="conteudo-home">
+		<!-- Chaordic TOP -->
+		<div linx-banner="top"></div>
+		<div chaordic="top"></div>
+		
+		{% if Request.IsMobileDevice == false %}
+		<div class="banners mosaico">
+			<div class="cl">
+				{% area(name="Mosaico 1 e 2") %}
+				
+			</div>
+			<div class="cc">
+				{% area(name="Mosaico 3") %}
+			</div>
+			<div class="cr">
+				{% area(name="Mosaico 4 e 5") %}
+			</div>
+		</div>
+		{% endif %}
+
+		<div class="banners">
+			{% area(name="Grande 1") %}
+		</div>
+
+		<div class="banners duplo">
+			<div class="cl">
+				{% area(name="Lado a lado 1") %}
+			</div>
+			<div class="cr">
+				{% area(name="Lado a lado 2") %}
+			</div>
+		</div>
+		
+		
+		{% if showNavByCategory %}
+		<div class="vitrine aba">
+			<div class="title-special">
+				<span>Navegue por categoria</span>
+			</div>
+			{% area(name="Vitrine em abas") %}
+		</div>
+		{% endif %}
+
+		<div class="carrosselv2">
+			{% area(name="Carrossel V2") %}
+		</div>
+		
+		<!-- Chaordic MIDDLE -->
+		<div linx-banner="middle"></div>
+		<div chaordic="middle"></div>
+		
+		<div class="banners duplo">
+			<div class="cl">
+				{% area(name="Lado a lado 3") %}
+			</div>
+			<div class="cr">
+				{% area(name="Lado a lado 4") %}
+			</div>
+		</div>		
+		
+		<div class="vitrine-marcas-area">
+			{% area(name="marcas") %}
+		</div>
+
+		<div class="banners">
+			{% area(name="Grande 2") %}
+		</div>
+	</div>
+	<!-- Chaordic BOTTOM -->
+	<div linx-banner="bottom"></div>
+	<div chaordic="bottom"></div>
+</div>
+<div id="appp">
+	
+</div>
+<link rel="stylesheet" href="http://localhost:3000/store/cart/cart.css" />
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="http://localhost:3000/cart/app.js"></script>
+ 
+<script>
+ReactDOM.render(<App />, document.getElementById("appp"));
+</script>
+
+{% if modalNewsletter == true %}
+		{% include /templates/modais/modal.newsletter.home.template %}	
+{% endif %}

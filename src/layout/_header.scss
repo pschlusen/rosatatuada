@@ -1,0 +1,33 @@
+#header{
+    .header--wrapper {
+        padding: 20px 0;
+
+        .header--image {
+            @media screen and (min-width: 1200px){
+                width: 150px;
+            }
+
+            img{
+                max-width: 150px;
+            }
+        }
+
+        .header--options{
+            .header--options__container{
+                float: right;
+
+                .header--options__item{
+                    display: inline-block;
+                    margin: 0 15px;
+                    cursor: pointer;
+                    text-align: right;
+                    width: 25px;
+                    
+                    img{
+                        width: auto;
+                    }
+                }
+            }
+        }
+    }
+}

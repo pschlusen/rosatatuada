@@ -1,0 +1,41 @@
+/* usar apenas durante a etapa de desenvolvimento, para buildar */
+@import '../../layout/variables';
+
+html, body{ background-color: #FFF; }
+img{  width: 100%; }
+
+.home--quicklinks__container{
+    background-color: #F5F5F5;
+
+    .home--quicklinks__text{
+        height: 80px;
+
+        span,
+        div{
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        span{
+            font-family: $font;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .quicklink__item {
+            border: 1px solid $black;
+            color: $black;
+            text-decoration: none;
+            font-family: $font;
+            width: 36px;
+            height: 20px;
+            display: inline-block;
+            text-align: center;
+            line-height: 18px;
+            font-size: 13px;
+            margin: 0 10px;
+            border-radius: 10px;
+        }
+    }
+}
+

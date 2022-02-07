@@ -1,0 +1,224 @@
+{% comment %}
+Estrutura do topo das páginas
+{% endcomment %}
+
+{% include /Configs/vars.inc %}
+
+<style>
+	body #logo a{
+		background-image: url({{ vars.logo }});
+	}
+</style>
+
+{% if Request.IsMobileDevice == false %}
+	{% if PageInfo.RouteClass contains 'topo-simples' %}
+{%else%}
+<div class="top-bar">
+	<div class="wrapper">
+		<div class="row">
+			<div class="ofertas col col-lg-6 col-md-12 col-sm-12">
+				<span class="frete col col-lg-4">
+					<i class="fas fa-truck"></i>
+					{{ Config.General.Store.Field10 }}
+				</span>
+				<span class="parcelamento col col-lg-4">
+					<i class="far fa-credit-card"></i>
+					{{ Config.General.Store.Field11 }}
+				</span>
+				{% comment %}
+				<span class="seguro col col-lg-4">
+					{{ Config.General.Store.Field12 }}
+				</span>
+				{% endcomment %}
+			</div>
+			<div class="links col col-lg-6 col-md-6 col-md-6 col-sm-12">
+				<ul>
+					<!--<li><a href="">Nossas Lojas</a></li>-->
+					<li><a href="{{ Urls.Profile.AccountOrder.Index }}" class="col col-lg-4 col-sm-4">Meus pedidos</a></li>
+					<li class="atendimento">
+						<a href="{{ Urls.BaseUrl }}fale-conosco" class="atendimento col col-lg-4">
+							<i class="fas fa-comment"></i>
+							Atendimento
+						</a>
+					</li>
+					<li>
+						<a href="tel:{{ Config.General.Store.Phone }}" class="telefone col col-lg-4 col-sm-4">
+							<i class="fas fa-phone-square"></i>
+							{{ Config.General.Store.Phone }}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% comment %}
+<div class="top-bar">
+	<div class="wrapper">
+		<div class="row">
+			<div class="ofertas col col-lg-7 col-md-12 col-sm-12">
+				<span class="frete col col-lg-4">
+					<i class="fas fa-truck"></i>
+					{{ Config.General.Store.Field10 }}
+				</span>
+				<span class="parcelamento col col-lg-4">
+					<i class="far fa-credit-card"></i>
+					{{ Config.General.Store.Field11 }}
+				</span>
+				<span class="troca  col col-lg-4">
+					<i class="fas fa-sync-alt"></i>
+					{{ Config.General.Store.Field12 }}
+				</span>
+			</div>
+			<div class="links col col-lg-5 col-md-6 col-md-6 col-sm-12">
+				<a href="{{ Urls.BaseUrl }}fale-conosco" class="atendimento col col-lg-4">
+					<i class="fas fa-comment"></i>
+					Atendimento
+				</a>
+				<a href="" class="telefone col col-lg-4 col-sm-4">
+					<i class="fas fa-phone-square"></i>
+					{{ Config.General.Store.Phone }}
+				</a>
+				<a href="{{ Urls.Profile.AccountOrder.Index }}" class="col col-lg-4 col-sm-4">Meus pedidos</a>		
+			</div>
+		</div>
+
+	</div>
+</div>
+{% endcomment %}
+	{%endif%}
+{%endif%}
+<div class="main-bar {% if Request.IsMobileDevice == true %}simples{%endif%}">
+	<div class="wrapper">
+		<div class="row align-items-center">
+			<div class="hamburguer col-2 no-desktop">
+				<i class="icon"></i>
+				<div class="dropdown-menu">
+					<div class="close-icon">
+						<button class="close-hamburguer">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+					<div class="account">
+						<ul class="unautenticated">
+							<li><a href="{{ Urls.Profile.Login.Index }}">Entrar</a></li>
+							<li>|</li>
+							<li><a href="{{ Urls.Profile.AccountRegister.Index }}">Cadastrar</a></li>
+						</ul>
+						<ul class="autenticated hide">
+							<li class="name"></li>
+							<li><a href="{{ Urls.Profile.Login.SignOut }}">Sair</a></li>
+						</ul>
+					</div>
+					<div class="category-menu-small">
+						{% browsing_categorymenu(
+						Template="/Templates/menu.hamburguer.template",						
+						GroupAlias="main-menu",
+						WidgetBox=false,
+						Levels=2) %}
+					</div>
+					<ul class="options autenticated hide">
+						<li><a href="{{ Urls.Profile.AccountOrder.Index }}">Meus pedidos</a></li>
+						<li><a href="{{ Urls.Profile.Account.Edit }}">Meu cadastro</a></li>
+						<li><a href="{{ Urls.Profile.AccountWishlist.Index }}">Lista de desejos</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="logo" class="col col-lg-2 col-7">
+				{% if Urls.CurrentUrl == '/' %}
+				<h1>
+					{% else %}
+					<div class="logo-center">
+						{% endif %}
+						<a href="{{ Urls.BaseUrl }}" title="Ir para a página inicial.">{{ Config.General.Store.Name }}</a>
+						{% if Urls.CurrentUrl == '/' %}
+						</h1>
+					{% else %}
+					</div>
+				{% endif %}
+			</div>
+			<div class="icons-resume col col-lg-4 col-3 order-lg-12">
+				<div class="row no-gutters align-items-center">
+					<div class="col-lg-4 col profile no-small">
+						
+						<a href="{{ Urls.Profile.Account.Edit }}" class="account">
+							<span class="icon"></span>
+							<span class="content"><br> <br></span>
+						</a>
+						<div class="dropdown-customer">
+							<h2 class="no-auth">Olá, faça seu login</h2>
+							{% profile_login(Action:Urls.Profile.Login.Index) %}	
+							<ul class="customer-menu">
+								<li class="new-account no-auth"><a href="{{ Urls.Profile.AccountRegister.Index }}">Cadastre-se agora</a></li>
+								<li class="user auth"><a href="{{ Urls.Profile.Account.Edit }}">Meu perfil</a></li>
+								<li class="orders auth"><a href="{{ Urls.Profile.AccountOrder.Index }}">Histórico de pedidos</a></li>
+								<!--<li class="exchange"><a href="{{ Urls.Profile.ReturnOrder.Index }}">Devolução</a></li>-->
+								<li class="auth"><a href="/fale-conosco">Central de atendimento</a></li>
+								<li class="logoff auth"><a href="{{ Urls.Profile.Login.SignOut }}">Sair</a></li>
+							</ul>							
+						</div>						
+					</div>
+					<div class="col-lg-4 col col wishlist">
+						
+						<a href="{{ Urls.Profile.AccountWishlist.Index }}" class="wishlist"><span class="icon"></span> Favoritos</a>
+					</div>
+					<div class="col-lg-4 col basket">
+						
+						<a href="{{ Urls.Shopping.Basket.Index }}">
+							<span class="icon">
+								<em class="total-items"></em>
+							</span>
+							Sacola <span class="content"> </span></a>
+						{% include /Custom/resumo.carrinho %}
+					</div>					
+				</div>
+			</div>
+			<div id="top-search" class="col col-lg-6 col-12">
+				{% product_search(doMapper="false", jshandler="ProductSearch",TextSearch="Buscar",Placeholder="O que você procura?") %}
+			</div>
+		</div>
+	</div>
+</div>
+{% if PageInfo.RouteClass contains 'topo-simples' %}
+{%else%}
+	{% if Request.IsMobileDevice == false %}
+	<div class="category-bar no-medium">
+		<div class="wrapper">
+			<div class="row">
+				<div class="all-category col col-xl-2 col-md-auto">
+					<div class="button-extend dropdown-icon">
+						<i class="fas fa-bars"></i>
+						<span class="d-lg-none d-xl-inline-block">Todas categorias</span>
+						<span class="arrow-up"></span>
+					</div>
+					{% browsing_categorymenu(
+					WidgetBox=false,
+					Levels=3,
+					LeafQuantity=8,
+					LeafMoreText="veja mais") %}
+				</div>
+				<div class="main-category col col-xl-8 col-md-auto">
+					{% browsing_categorymenu(
+					Template="/Custom/main.menu.template",
+					WidgetBox=false,
+					GroupAlias="main-menu",
+					Levels=3,
+					LeafQuantity=8,
+					LeafMoreText="veja mais") %}
+				</div>
+				<div class="day-offer col col-xl-2 col-md-auto">
+					<i class="fas fa-dollar-sign"></i>
+					<span>Ofertas</span>
+					<span class="arrow-up"></span>
+					<div class="dropdown-oferta">
+						{% area(Name="Oferta do dia") %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{%endif%}
+
+{%endif%}
