@@ -54,12 +54,12 @@ class RosaTatuadaUtils {
                 type: 'GET'
             }
         )
-            .done(response => {
-                return response
-            })
-            .fail(() => {
-                return { error: true }
-            })
+        .done(response => {
+            return response
+        })
+        .fail(() => {
+            return { error: true }
+         })
     }
     openModal(html, classes, onClosedCallback) {
         app.modal(

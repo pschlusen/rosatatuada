@@ -1,0 +1,19 @@
+@import '../../layout/variables';
+
+div#teste{
+    font-size: 12px;
+    span{
+        p{
+            color: red;
+            font-size: 11px;
+            font-family: $font;
+            border-bottom: 1px solid;
+        }
+    }
+
+    h1{
+        span{
+            color: blue;
+        }
+    }
+}

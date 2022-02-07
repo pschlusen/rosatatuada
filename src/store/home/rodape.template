@@ -1,0 +1,122 @@
+{% comment %}
+Estrutura do rodapé das páginas
+{% endcomment %}
+
+{% include /Configs/vars.inc %}
+
+{% area(name="Uso de dados") %}
+
+<div class="wrapper">
+	<div class="footer-newsletter">
+		<div class="col-lg-8 col-md-12 col-12 content">
+			<div class="col-lg-6 col-md-12 col-12">
+				<h2>Receba todas as novidades
+					<small>Cadastre-se e receba ofertas exclusivas.</small>
+				</h2>
+			</div>
+			<div class="col-lg-6 col-md-12 col-12">
+				{% marketing_newsletter(TextRegister="Cadastrar") %}
+			</div>
+		</div>
+	</div>
+	<div class="row content-center">
+		<div class="cms-page-menu col col-12 col-lg-3 footer-category">
+			<div class="row">
+				<div class="col cms-page col-md-12 col-12">
+					<h2><small><strong class="section-title">Institucional</strong></small></h2>								
+					{% cms_pagemenu(OnlyPage="institucional",WidgetBox=false) %}
+				</div>
+			</div>
+		</div>
+		<div class="col col-12 col-md-6 col-lg-3 footer-social">
+			<h4  class="section-title">
+				Redes Sociais
+			</h4>
+			{% if Config.General.Store.Field14 != Null %}
+				<a href="{{ Config.General.Store.Field14 }}" target="_blank" class="facebook">
+				<i class="fab fa-facebook"></i>
+			</a>			
+			{% endif %}
+			{% if Config.General.Store.Field15 != Null %}
+				<a href="{{ Config.General.Store.Field15 }}" target="_blank" class="twitter">
+				<i class="fab fa-twitter"></i>
+			</a>
+			{% endif %}
+			{% if Config.General.Store.Field16 != Null %}
+				<a href="{{ Config.General.Store.Field16 }}" target="_blank" class="instagram">
+				<i class="fab fa-instagram"></i>
+			</a>
+			{% endif %}
+		</div>
+		<div class="col col-12 col-md-6 col-lg-3 central-atendimento">
+			<h4  class="section-title">
+				Central de Atendimento
+			</h4>
+			<div class="phone col col-12">
+				<i class="fas fa-phone"></i>
+				<span>
+					<strong>Dúvidas, ligue</strong>
+					<a href="tel:{{ Config.General.Store.Phone }}">{{ Config.General.Store.Phone }}</a>
+				</span>
+			</div>
+			<div class="email col col-12">
+				<i class="far fa-envelope"></i>
+				<span>
+					<strong>Envie um e-mail</strong>
+					<a href="mailto:{{ Config.General.Store.Email }}">{{ Config.General.Store.Email }}</a>
+				</span>
+			</div>
+			<div class="horario col col-12">
+				<i class="far fa-clock"></i>
+				<small><strong>Horário de atendimento:</strong>{{ Config.General.Store.Field13 }}</small>
+			</div>
+			
+		</div>
+		
+		<div class="col col-12 col-md-12 col-lg-3 certificados">
+			<div class="col col-md-6 col-lg-12 col-sm-12 col-12">			
+				<strong  class="section-title">Formas de pagamento:</strong>
+				<div class="shields">
+					<img src="{{ '/themes/base/imagens/payments.png' | contentpath }}" alt="payments">
+				</div>
+			</div>
+			<div class="col col-md-6 col-lg-12 col-sm-12 col-12">
+				<strong  class="section-title">Selos e segurança:</strong>
+				<div class="shields">
+					<a href="#" class="shield shield-letsencrypt" title="Let's Encrypt"></a>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="assinatura">
+		<div class="row aboutme align-items-center">
+			<div id="logo" class="col col-lg-2 col-md-3 col-sm-3 col-12">
+				<a href="{{ Urls.BaseUrl }}" title="Ir para a página inicial">{{Config.General.Store.Name}}</a>			
+			</div>
+			<div class="text col col-lg-10 col-md-9 col-sm-9 col-12">
+				<p>{{ Config.General.Store.GeneralText }}</p>
+
+			</div>
+		</div>
+		
+		<div class="row justify-content-center">
+			
+			<div class="creators col col-md-12 col-12">
+				<div class="row">					
+					<div class="col col-md-12">
+						<a href="https://www.linx.com.br/linx-commerce/" class="logo-creator"><img src="{{''|concat:'/Imagens/logo-linxcommerce_3.png?lll' | themepath }}" alt="Plataforma Core"/></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copyright col col-md-12">
+			<small>Copyright © 2018 - Linx Commerce Store. TODOS OS DIREITOS RESERVADOS.</small>
+		</div>
+	</div>
+</div>
+{% error_summary %}
+
+{% comment %}Shared/Templates/general/scripts-loader.template{% endcomment %}
+{% include Templates/general/loaders/styles-loader.template %}
+{% include Templates/general/loaders/scripts-loader.template %}

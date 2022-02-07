@@ -7,7 +7,7 @@ const slickFullbanner = () => {
             dots: false,
             arrows: false,
             autoplay: true,
-            autoplaySpeed: 1800,
+            autoplaySpeed: 2000,
             slidesToShow: 1,
             slidesToScroll: 1
         }
@@ -37,7 +37,6 @@ const fillQuickLinks = () => {
         }
     })
 }
-
 
 (function() {
     slickFullbanner()
