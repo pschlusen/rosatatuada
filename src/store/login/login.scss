@@ -17,3 +17,151 @@ div#teste{
         }
     }
 }
+
+div #header--wrapper.container {
+    top: 112px;
+    left: 850px;
+    width: 220px;
+    height: 92px;
+}
+body {
+    height: 100%;
+    width: 100%;
+}
+#header .header--wrapper .header--image img{
+    max-width: none;
+    width: 260px;
+}
+
+div.header--image  {    
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    //margin-top: 0px;
+    width: 260px;
+    height: 92px;
+}
+div.row.login-box{
+    height: 520px;
+}
+form {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+form div.input-wrapper{
+    position: relative;
+    top: 15px;
+}
+
+form div.input-wrapper label{
+    //position: absolute;
+    margin-top: 50px;
+    margin-left: 25px;
+    color: #A8A8A8;
+    cursor: text;
+    font-size: 15px;
+    font-family: $roboto;
+    font-weight: bold;
+}
+
+
+/*INPUT EMAIL*/
+form div.input-wrapper .email{
+    width: 465px;
+    padding: 5px;
+    border: 0;
+    border-bottom: 2px solid rgb(50, 50, 50);
+    outline: 0;
+}
+
+form div.input-wrapper .email:focus{
+
+    border-bottom: 2px solid black;
+}
+
+ /*INPUT SENHA*/
+form div.input-wrapper .password {
+    width: 465px;
+    padding: 5px;
+    border: 0;
+    border-bottom: 2px solid rgb(50, 50, 50);
+    outline: 0;
+}
+
+form div.input-wrapper .password:focus{
+
+    border-bottom: 2px solid black;
+}
+
+form div.input-wrapper .password:focus ~ label{
+    transform: translateY(-10px);
+}
+
+form div.input-wrapper .password label {
+    margin: 80px 0;
+}
+a {
+    position: relative;
+    top: 40px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+div#content {
+    nav.wd-browsing-breadcrumbs{
+        display: none;
+    }
+}
+div#jasoucliente{
+    h2{
+        text-transform: uppercase;  
+        margin-top: 120px;  
+        margin-left: 480px;
+    }
+
+}
+div#criarconta {
+    div.painel-wrapper {
+        h2{
+            display: none;
+        }
+        #wd12 {
+            display: none;
+        }
+    }
+}    
+
+
+    /*BOTÃO ENTRAR*/
+
+div.input-wrapper #widget75-submit {
+    background-color: black; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    border-radius: 27px;
+    width: 465px;
+    height: 55px;
+    letter-spacing: 0.8px;
+    font: normal normal 900 20px/29px Brandon Grotesque;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-top: 78px;
+    
+}
+    /*BOTÕES LATERAIS*/
+
+div.header--options__container {
+    display: none;
+}
+
+div.col.col-lg-12.col-12.login-oauth{
+    display: none;
+}
