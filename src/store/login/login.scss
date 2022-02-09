@@ -77,8 +77,9 @@ form div.input-wrapper .email{
     width: 378px;
     padding: 5px;
     border: 0;
-    border-bottom: 2px solid rgb(50, 50, 50);
+    border-bottom: 1px solid rgb(50, 50, 50);
     outline: 0;
+    color: #000000;
 }
 
 form div.input-wrapper .email:focus{
@@ -91,15 +92,16 @@ form div.input-wrapper .password {
     width: 378px;
     padding: 5px;
     border: 0;
-    border-bottom: 2px solid rgb(50, 50, 50);
+    border-bottom: 1px solid rgb(50, 50, 50);
     outline: 0;
     letter-spacing: 0;
     opacity: 1;
+    color: #000000;
 }
 
 form div.input-wrapper .password:focus{
 
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid black;
 }
 
 form div.input-wrapper .password:focus ~ label{
