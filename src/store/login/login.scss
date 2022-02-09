@@ -30,7 +30,11 @@ body {
 }
 #header .header--wrapper .header--image img{
     max-width: none;
-    width: 260px;
+    width: 220px;
+    position: absolute;
+    top: 50px;
+    left: -45px;
+    //transform: translate(-50%, -50%);
 }
 
 div.header--image  {    
@@ -38,7 +42,7 @@ div.header--image  {
     margin-right: auto;
     margin-left: auto;
     //margin-top: 0px;
-    width: 260px;
+    width: 220px;
     height: 92px;
 }
 div.row.login-box{
@@ -70,7 +74,7 @@ form div.input-wrapper label{
 
 /*INPUT EMAIL*/
 form div.input-wrapper .email{
-    width: 465px;
+    width: 378px;
     padding: 5px;
     border: 0;
     border-bottom: 2px solid rgb(50, 50, 50);
@@ -84,11 +88,13 @@ form div.input-wrapper .email:focus{
 
  /*INPUT SENHA*/
 form div.input-wrapper .password {
-    width: 465px;
+    width: 378px;
     padding: 5px;
     border: 0;
     border-bottom: 2px solid rgb(50, 50, 50);
     outline: 0;
+    letter-spacing: 0;
+    opacity: 1;
 }
 
 form div.input-wrapper .password:focus{
@@ -109,6 +115,7 @@ a {
     color: black;
     text-transform: uppercase;
     font-weight: bold;
+    font-size: 14px;
 }
 div#content {
     nav.wd-browsing-breadcrumbs{
@@ -118,8 +125,9 @@ div#content {
 div#jasoucliente{
     h2{
         text-transform: uppercase;  
-        margin-top: 120px;  
+        margin-top: 155px;  
         margin-left: 480px;
+        font-size: 18px;
     }
 
 }
@@ -140,20 +148,18 @@ div#criarconta {
 div.input-wrapper #widget75-submit {
     background-color: black; 
     border: none;
-    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: block;
-    font-size: 16px;
     border-radius: 27px;
-    width: 465px;
-    height: 55px;
+    width: 378px;
+    height: 53px;
     letter-spacing: 0.8px;
     font: normal normal 900 20px/29px Brandon Grotesque;
     text-transform: uppercase;
     color: #FFFFFF;
-    margin-top: 78px;
+    margin-top: 90px;
     
 }
     /*BOTÕES LATERAIS*/
