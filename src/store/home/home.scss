@@ -1,9 +1,6 @@
 /* usar apenas durante a etapa de desenvolvimento, para buildar */
 @import '../../layout/variables';
 
-html, body{ background-color: #FFF; }
-img{  width: 100%; }
-
 .home--quicklinks__container{
     background-color: #F5F5F5;
 
@@ -35,7 +32,11 @@ img{  width: 100%; }
             font-size: 13px;
             margin: 0 10px;
             border-radius: 10px;
+            transition: $transition;
+            &:hover{
+                background-color: $black;
+                color: #fff;
+            }
         }
     }
 }
-
