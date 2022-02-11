@@ -4,6 +4,7 @@ class RosaTatuadaUtils {
             throw 'jQuery não inicializado'
         }
     }
+
     creteElement(element, id, classes) {
         let _element = null
 
@@ -24,6 +25,7 @@ class RosaTatuadaUtils {
 
         return _element
     }
+
     addToCart(productId, skuId, quantity, successCallback, errorCallback) {
         $.ajax(
             {
@@ -47,6 +49,7 @@ class RosaTatuadaUtils {
                 typeof errorCallback == 'function' ? errorCallback() : null
             })
     }
+
     getCart() {
         $.ajax(
             {
@@ -61,6 +64,7 @@ class RosaTatuadaUtils {
             return { error: true }
          })
     }
+
     openModal(html, classes, onClosedCallback) {
         app.modal(
             {
@@ -69,6 +73,14 @@ class RosaTatuadaUtils {
                 "onClosed": onClosedCallback
             }
         )
+    }
+
+    getChannel() {
+        if(browsingContext.Common.WebSite.WebSiteID == 1){
+            return 'b2c'
+        }else{
+            return 'b2b'
+        }
     }
 }
 

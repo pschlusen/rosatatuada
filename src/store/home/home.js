@@ -14,6 +14,21 @@ const slickFullbanner = () => {
     )
 }
 
+/* slick vitrines */
+const slickShelf = () => {
+    const $shelf = $('.products-slider .products-slider__slick')
+
+    $shelf.slick(
+        {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: false,
+            dots:false,
+            variableWidth: true
+        }
+    )
+}
+
 
 /* compre no seu tamanho */
 const fillQuickLinks = () => {
@@ -40,7 +55,18 @@ const fillQuickLinks = () => {
 
 (function() {
     slickFullbanner()
+    slickShelf()
     fillQuickLinks()
+
+    $(window).on('scroll', function(){
+        $('.wd-product-line-medias .variation img').not('.ready').each(function(id, item){
+            
+            $(item).attr('src', 'https://rosatatuada.core.dcg.com.br/custom/content/themes/Shared/Templates/general/images/download.png')
+            if( $(item).attr('src') == 'https://rosatatuada.core.dcg.com.br/custom/content/themes/Shared/Templates/general/images/download.png' ){
+                $(item).addClass('ready')
+            }
+        })
+    })
 })()
 
 
