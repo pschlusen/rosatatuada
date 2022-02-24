@@ -1,0 +1,103 @@
+@import '../../layout/variables';
+@import '../../layout/breakpoints';
+
+#header .header--wrapper {
+    background-color: black;
+
+}
+nav.wd-browsing-breadcrumbs {
+    display: none;
+}
+
+img {
+    margin-left: 115px;
+    filter: opacity(0.4) drop-shadow(0 0 0 white);
+}
+
+.wd-title {
+    font-size: 22px;
+    margin-top: 149px;
+    margin-bottom: 72px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.header--options__container {
+    display: none;
+}
+.wd-profile-register.wd-widget {
+    width: 740px;
+    margin: auto;
+}
+fieldset.customer-type-data {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: none;
+}
+fieldset.customer-account-data {
+    border: none;
+}
+
+label.field-title {
+    margin-top: 60px;
+    margin-left: 40px;
+    display: block;
+    font: $font;
+    color: #a8a8a8;
+
+}
+small {
+    margin-left: 20px;
+    font-size: 16px;
+    color: #a8a8a8;
+}
+
+
+input {
+    border: 0;
+    border-bottom: 1px solid rgb(50, 50, 50);
+    outline: 0;
+    letter-spacing: 0;
+    opacity: 1;
+    color: #000000;
+    width: 279px;
+}
+
+input#AddOrSetCustomer-Contact-CellPhone {
+    margin-bottom: 10px;
+}
+.customer-type.customer-type-person {
+    margin-left: 100px;
+}
+
+.button-wrapper {
+    width: 700px;
+    margin: auto;
+}
+select#AddOrSetCustomer-Gender {
+    float: right;
+    /* width: 20px; */
+    border: none;
+    margin-top: -15px;
+    font: $font;
+    font-size: 14px;
+    color: #a8a8a8;
+}
+button {
+    background-color: black; 
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    border-radius: 27px;
+    width: 378px;
+    height: 53px;
+    letter-spacing: 0.6px;
+    font-family: $font;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-top: 90px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
