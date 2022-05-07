@@ -29,7 +29,6 @@ const slickShelf = () => {
     )
 }
 
-
 /* compre no seu tamanho */
 const fillQuickLinks = () => {
     const $quickLinks = $('.home--quicklinks__options')
@@ -43,7 +42,7 @@ const fillQuickLinks = () => {
     ).done( response => {
         if(typeof response == 'object'){
             response.forEach(item => {
-                const quickLink = RTUtils.creteElement('a', null, 'quicklink__item')
+                const quickLink = RTUtils.createElement('a', null, 'quicklink__item')
                 quickLink.text = item.item
                 quickLink.href = item.link
 
@@ -53,18 +52,45 @@ const fillQuickLinks = () => {
     })
 }
 
+const onPlayerReady = (event) => {
+    const image = document.querySelector('.video--section img')
+    image.style.display = 'none'
+    event.target.playVideo()
+}
+
+/* manipula o video */
+const handleYoutubeVideo = () => {
+    var button = document.querySelector('.video--section img')
+
+    button.addEventListener('click', (e) => {
+        var image = e.target
+
+        const player = new YT.Player('yt-player', {
+            height: image.height,
+            width: image.width,
+            videoId: 'mdbS2nRthws',
+            events: {
+              'onReady': onPlayerReady
+            }
+        })
+        
+    })
+
+    
+}
+
 (function() {
     slickFullbanner()
     slickShelf()
     fillQuickLinks()
-
-    $(window).on('scroll', function(){
-        $('.wd-product-line-medias .variation img').not('.ready').each(function(id, item){
+    handleYoutubeVideo()
+    // $(window).on('scroll', function(){
+    //     $('.wd-product-line-medias .variation img').each(function(id, item){
             
-            $(item).attr('src', 'https://rosatatuada.core.dcg.com.br/custom/content/themes/Shared/Templates/general/images/download.png')
-            if( $(item).attr('src') == 'https://rosatatuada.core.dcg.com.br/custom/content/themes/Shared/Templates/general/images/download.png' ){
-                $(item).addClass('ready')
-            }
-        })
-    })
+    //         $(item).attr('src', 'https://rosatatuada.core.dcg.com.br/custom/content/themes/Shared/Templates/general/images/download.png')
+    //         if( $(item).attr('src') == 'https://rosatatuada.core.dcg.com.br/custom/content/themes/Shared/Templates/general/images/download.png' ){
+    //             $(item).addClass('ready')
+    //         }
+    //     })
+    // })
 })()

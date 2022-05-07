@@ -1,0 +1,224 @@
+@import '../../../layout/_variables';
+
+body[class*="context-category"]{
+    #left, #right{
+        margin: 0;
+    }
+
+    #middle{
+        margin-top: 50px;
+    }
+
+    .mobile-control{
+        display: none;
+    }
+
+    .container--facets {
+        padding-left: 55px;
+        padding-right: 55px;
+        margin-bottom: 40px;
+
+        span.title {
+            margin-right: 15px;
+            font-size: 14px;
+            position: initial;
+            margin-top: 3px;
+            color: #8d8d8d;
+        }
+
+        .wd-facet-group{
+            display: inline-block;
+        }
+
+        .facets{
+            background: $white;
+            border: 0;
+
+            .facet-type{
+                display: inline-block;
+                margin-right: 50px;
+                position: relative;
+                overflow: visible;
+
+                ul{
+                    position: absolute;
+                    z-index: 9999;
+                    background: $white;
+                    width: 300px;
+                    display: block;
+                    border: $soft-border;
+                    padding: 20px;
+                    margin-top: 10px;
+
+                    &::before{
+                        content: "";
+                        display: inline-block;
+                        border-left: 1px solid #cecece;
+                        border-top: 1px solid #cecece;
+                        width: 10px;
+                        height: 10px;
+                        background-color: #FFF;
+                        position: absolute;
+                        top: -6px;
+                        transform: rotate(45deg);
+                    }
+
+                    .option-title,
+                    .option-count{
+                        color: $black;
+                        font-size: 13px;
+                    }
+                }
+
+                &.brand,
+                &.price,
+                &.category {
+                    display: none;
+                }
+            }
+
+            .facet-title{
+                border: 0!important;
+                font-weight: normal!important;
+                text-transform: uppercase;
+                font-size: 13px;
+
+                &::before{
+                    display: none!important;
+                }
+
+                &::after{
+                    content: "";
+                    display: inline-block;
+                    width: 7px;
+                    height: 7px;
+                    border-bottom: 2px solid #000;
+                    border-right: 2px solid #000;
+                    position: absolute;
+                    top: calc(50% + 2px);
+                    right: -20px;
+                    transition: $transition;
+                    transform: translateY(-50%) rotate(-135deg);
+                }
+
+                &.facet-closed::after{
+                    top: calc(50% - 2px);
+                    transform: translateY(-50%) rotate(45deg);
+                }
+
+                
+            }
+        }
+    }
+
+    .grid--area {
+        padding-left: 50px;
+        padding-right: 50px;
+
+        .grid--area__container{
+            padding-left: 0;
+            padding-right: 0;
+
+            .category--name {
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 27px;
+                padding-left: 20px;
+                font-family: $font2;
+            }
+
+            .wd-product-line {
+                width: calc(100% - 40px);
+                margin: 0 20px;
+            }
+
+            .wd-facet-group{
+                padding-left: 25px;
+
+                .facets{
+                    background-color: $white;
+                    border: 0;
+                    padding: 0;
+        
+                    .facet-type-range{
+                        display: none;
+                    }
+        
+                    .facet-type .facet-title{
+                        border: 0;
+                        
+                        &.facet-closed::before{
+                            top: 3px;
+                        }
+        
+                        &::before{
+                            border: 0;
+                            color: $black;
+                            top: 5px;
+                            width: 15px;
+                            height: 15px;
+                        }
+                    }
+        
+                    ul li a .option-title {
+                        color: $black!important;
+                    }
+                }
+            }
+        
+        
+            .wd-browsing-grid{
+                header{
+                    .wd-browsing-grid-pager{
+                        display: none;
+                    }
+        
+                    .wd-browsing-grid-sorter{
+                        display: none;
+                        position: initial;
+                        float: right;
+                        margin-right: 40px;
+                    }
+                }
+        
+                .wd-browsing-grid-list{
+                    ul{
+                        border-top: 0;
+
+                        li{
+                            margin-top: 40px;
+
+                            .name {
+                                padding: 0;
+                                min-height: 20px!important;
+                                height: 20px;
+                                overflow: hidden;
+
+                                a{
+                                    color: $soft-grey;
+                                    font-size: 14px;
+                                    text-align: center;
+                                    display: block;
+                                }
+                            }
+
+                            .priceContainer{
+                                text-align: center;
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }        
+            }
+        }
+ 
+    }
+
+    
+
+    footer,
+    .savings,
+    #facets--control__button{
+        display: none;
+    }
+}
