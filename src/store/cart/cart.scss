@@ -250,6 +250,10 @@
                     position: relative;
                     // height: 110px;
                     height: 10vh;
+                    
+                    .warning{
+                        display: none!important;
+                    }
 
                     button.btn-remove {
                         position: absolute;
@@ -302,6 +306,19 @@
                         li.price {
                             padding: 0;
                             display: inline-block;
+                            position: relative;
+
+                            del{
+                                font-size: 11px;
+                                text-align: center;
+                                color: $soft-grey;
+                                font-weight: normal;
+                                position: absolute;
+                                top: -15px;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                width: 100%;
+                            }
                         }
 
                         li.price {
@@ -410,7 +427,7 @@
         .cart--delivery__container {
             border: $border;
             height: 40px;
-            width: 70%;
+            width: 100%;
             margin: 0 auto;
             border-radius: 20px;
             padding: 4px 5px 4px 10px;
@@ -465,8 +482,10 @@
 
         .delivery-options {
             border: 0;
-            width: 70%;
+            width: 100%;
             margin: 0 auto;
+            padding-left: 10px;
+            box-sizing: border-box;
 
             li.js-delivery-choice {
                 padding-left: 25px;
@@ -514,7 +533,7 @@
                 display: inline-block;
 
                 .name {
-                    font-size: 16px;
+                    font-size: 12px;
                     text-transform: uppercase;
                     display: block;
                 }
@@ -530,7 +549,10 @@
                 float: right;
 
                 span{
-                    color: $success;
+                    color: $black;
+                    font-size: 12px;
+                    display: inline-block;
+                    vertical-align: top;
                 }
             }
 
@@ -540,7 +562,7 @@
                 color: $black;
                 height: 30px;
                 border-radius: 15px;
-                font-size: 14px;
+                font-size: 12px;
                 line-height: 30px;
                 font-family: $font;
                 margin-top: 20px;
@@ -571,7 +593,7 @@
         .description {
             border: $border;
             height: 40px;
-            width: 70%;
+            width: 100%;
             margin: 0 auto;
             border-radius: 20px;
             padding: 4px 5px 4px 10px;
@@ -612,12 +634,31 @@
 
     }
 
+    .wd-checkout-basket-discount,
+    .wd-checkout-basket-deliveryoptions{
+        display: inline-block;
+        width: calc(50% - 10px);
+        vertical-align: top;
+    }
 
 
+    .loading.load-checkout {
+        background: rgba(255, 255, 255, .9);
+        position: fixed;
+        z-index: 999999999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
 
-
-
-
+        img{
+            width: 200px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
 
 
 

@@ -1,12 +1,12 @@
 @import '../../../layout/_variables';
 
-body[class*="context-category"]{
+.CategoryRoute{
     #left, #right{
         margin: 0;
     }
 
     #middle{
-        margin-top: 50px;
+        margin-top: 0;
     }
 
     .mobile-control{
@@ -16,23 +16,75 @@ body[class*="context-category"]{
     .container--facets {
         padding-left: 55px;
         padding-right: 55px;
-        margin-bottom: 40px;
+        margin-bottom: 10px;
+
+        .facets--container{
+            position: relative;
+        }
 
         span.title {
             margin-right: 15px;
             font-size: 14px;
-            position: initial;
+            position: absolute;
             margin-top: 3px;
             color: #8d8d8d;
+
+            bottom: 14px;
+            left: 0;
+            z-index: 10;
         }
 
         .wd-facet-group{
-            display: inline-block;
+            display: block;
+            
+            .selected-facets{
+                background: $white;
+                border: 0;
+                margin-bottom: 0;
+                
+                &::before{
+                    display: none;
+                }
+
+                .selected-facet{
+                    border: 0;
+                    display: inline-block;
+                    margin-left: 0;
+                    
+                    ul{
+                        padding-left: 0;
+
+                        li{
+                            border: 0;
+    
+                            span.option-label {
+                                font-weight: normal;
+                                text-transform: capitalize;
+                                color: $black;
+                            }
+    
+                            .clear-filter{
+                                color: #D0342C;
+    
+                                &:hover{
+                                    color: #D0342C;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .selected-facet-name{
+                display: none;
+            }
         }
 
         .facets{
             background: $white;
             border: 0;
+            padding-top: 0;
+            padding-left: 120px;
 
             .facet-type{
                 display: inline-block;
@@ -128,8 +180,9 @@ body[class*="context-category"]{
             }
 
             .wd-product-line {
-                width: calc(100% - 40px);
                 margin: 0 20px;
+                width: calc(100% - 40px);
+                height: auto!important;
             }
 
             .wd-facet-group{
@@ -174,16 +227,17 @@ body[class*="context-category"]{
                     }
         
                     .wd-browsing-grid-sorter{
-                        display: none;
-                        position: initial;
-                        float: right;
-                        margin-right: 40px;
+                        position: absolute;
+                        right: 20px;
+                        top: 0;
                     }
                 }
         
                 .wd-browsing-grid-list{
                     ul{
                         border-top: 0;
+                        padding-top: 0;
+                        margin-top: 0;
 
                         li{
                             margin-top: 40px;
@@ -214,11 +268,28 @@ body[class*="context-category"]{
  
     }
 
+    .category--description {
+        margin-top: 100px;
+        margin-bottom: 80px;
+
+       span{
+        font-family: $font;
+        font-size: 20px;
+        color: $black;
+       }
+    }
+
     
 
-    footer,
     .savings,
     #facets--control__button{
         display: none;
+    }
+    
+    footer{
+        .wd-browsing-grid-pager ,
+        .wd-browsing-grid-sorter{
+            display: none;
+        }
     }
 }

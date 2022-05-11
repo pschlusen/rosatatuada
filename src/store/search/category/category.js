@@ -27,4 +27,8 @@ const facetHandler = () => {
 
 (function(){
     facetHandler()
+
+    $(document).ajaxComplete( () => {
+        facetHandler()
+    })
 })()

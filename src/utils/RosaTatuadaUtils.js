@@ -71,19 +71,16 @@ class RosaTatuadaUtils {
 
     }
 
-    getCart() {
+    getCart(callback) {
         $.ajax(
             {
-                url: '/carrinho.json',
+                url: `${browsingContext.Common.Urls.BaseUrl}carrinho.json`,
                 type: 'GET'
             }
         )
-            .done(response => {
-                return response
-            })
-            .fail(() => {
-                return { error: true }
-            })
+        .done(response => {
+            callback(response)
+        })
     }
 
     openModal(html, classes, onClosedCallback) {
@@ -204,6 +201,17 @@ class RosaTatuadaUtils {
         container.classList.add('visible')
     }
 
+    updateCartBadge = (data) => {
+        const cartBadge = document.getElementById('badge-total-items')
+        const basket = data ? data.Basket : browsingContext.Common.Basket
+    
+        const totalItemOnCart = basket.Items
+                                .map( item => { return item.Quantity } )
+                                .reduce( (previousValue, currentValue) => previousValue + currentValue, 0 )
+    
+        cartBadge.innerText = totalItemOnCart 
+    }
+
     openMinicart() {
         const minicartContainer = document.getElementById('minicartModal')
         const minicartContent = document.getElementById('minicartModal--content')
@@ -237,17 +245,21 @@ class RosaTatuadaUtils {
         let mainDocument
 
         if (window !== window.parent) {
-            minicartContainer = window.parent.document.getElementById('minicartModal')
+            const minicartContainer = window.parent.document.getElementById('minicartModal')
             minicartContent = window.parent.document.getElementById('minicartModal--content')
             iframe = minicartContent.querySelector('iframe')
             mainDocument = window.parent.document.documentElement
-        } else {
+
+            minicartContainer.click()
+        } 
+        else {
             minicartContainer = document.getElementById('minicartModal')
             minicartContent = document.getElementById('minicartModal--content')
             iframe = minicartContent.querySelector('iframe')
             mainDocument = document.documentElement
         }
 
+        
 
         minicartContent.classList.remove('active')
 
@@ -256,6 +268,20 @@ class RosaTatuadaUtils {
             mainDocument.style.overflowY = 'initial'
             minicartContent.innerHTML = ""
         }, 200)
+    }
+
+    acceptNewsletter(data, callback) {
+        const { name, email } = data
+
+        $.ajax({
+            url: `${browsingContext.Common.Urls.BaseUrl}shopping/newsletter.json`,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                name,
+                email
+            }
+        }).done( response => { callback(response) } )
     }
 }
 

@@ -1,30 +1,25 @@
 @import '../../layout/variables';
 @import '../../layout/breakpoints';
 
-div#teste{
-    font-size: 12px;
-    span{
-        p{
-            color: red;
-            font-size: 11px;
-            font-family: $font;
-            border-bottom: 1px solid;
+header{
+    .logo--bar {
+        text-align: center;
+
+        img{
+            width: 200px;
+            margin: 50px 0;
         }
     }
 
-    h1{
-        span{
-            color: blue;
-        }
+    &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 50px;
+        background-color: #000;
     }
 }
-header:before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 50px;
-    background-color: #000;
-}
+
 body {
     height: 100%;
     width: 100%;
@@ -47,12 +42,10 @@ div.row.login-box{
     width: 400px;
     height: 60px;
 }
-form {
+
+.painel-wrapper {
     width: 400px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto;
 }
 
 form div.input-wrapper label{
@@ -67,38 +60,21 @@ form div.input-wrapper label{
 }
 
 
-/*INPUT EMAIL*/
-form div.input-wrapper .email{
-    width: 378px;
-    padding: 5px;
-    border: 0;
-    border-bottom: 1px solid rgb(50, 50, 50);
-    outline: 0;
-    color: #000000;
-}
 
- /*INPUT SENHA*/
-form div.input-wrapper .password {
-    width: 378px;
-    padding: 5px;
-    border: 0;
-    border-bottom: 1px solid rgb(50, 50, 50);
-    outline: 0;
-    letter-spacing: 0;
-    opacity: 1;
-    color: #000000;
-}
 form div.input-wrapper .password label {
     margin: 80px 0;
 }
 
 a.js-login-recoverpassword.recover-password {
-    position: relative;
-    top: 40px;
-    color: black;
+    color: $black;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 14px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    display: block;
+    text-decoration: underline;
+    font-family: $font2;
 }
 div#content {
     nav.wd-browsing-breadcrumbs{
@@ -107,10 +83,12 @@ div#content {
 }
 div#jasoucliente{
     h2{
-        font-family: $font;
-        margin-top: 73px    ;
+        font-family: $font2;
+        margin-top: 70px    ;
         text-transform: uppercase;  
-        font-size: 18px;
+        font-size: 17px;
+        font-weight: bold;
+        margin-bottom: 50px;
     }
 
 }
@@ -125,27 +103,6 @@ div#criarconta {
     }
 }    
 
-
-    /*BOTÃO ENTRAR*/
-
-div.input-wrapper #widget75-submit {
-    background-color: black; 
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    border-radius: 27px;
-    width: 378px;
-    height: 53px;
-    letter-spacing: 0.8px;
-    font-family: $font;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    margin-top: 90px;
-    font-size: 20px;
-    font-weight: bold;
-    
-}
     /*BOTÕES LATERAIS*/
 
 div.header--options__container {
@@ -191,4 +148,73 @@ div.col.col-lg-12.col-12.login-oauth{
     div.input-wrapper #widget75-submit{
         font-size: 30px;
     }    
+}
+
+.wd-profile-login{
+    .input-wrapper{
+        margin-top: 30px;
+        padding-bottom: 10px;
+        width: 400px;
+
+        input{
+            border: 0;
+            border-bottom: 1px solid $black;
+            padding-bottom: 20px;
+            width: 100%;
+            outline: none;
+            font-size: 15px;
+        }
+
+        label{
+            display: none;
+        }
+    }
+
+    button[type="submit"]{
+        background-color: $black;
+        color: $white;
+    }
+
+    button[type="submit"]{
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        border-radius: 30px;
+        width: 100%;
+        height: 60px;
+        letter-spacing: .8px;
+        font-family: Roboto,sans-serif;
+        text-transform: uppercase;
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: 700;
+        border: 1px solid $black;
+        line-height: 60px;
+    }
+
+    
+}
+
+.login-box{
+    a.button--register{
+        background-color: $white;
+        color: $black;
+    }
+
+    a.button--register {
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        border-radius: 30px;
+        width: 100%;
+        height: 60px;
+        letter-spacing: .8px;
+        font-family: Roboto,sans-serif;
+        text-transform: uppercase;
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: 700;
+        border: 1px solid $black;
+        line-height: 60px;
+    }
 }

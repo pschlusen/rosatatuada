@@ -67,12 +67,12 @@ const initWishlistButton = () => {
    const variationsQuantity = document.querySelectorAll('.variation-options').length
    const filledIcon = document.querySelector('.wishlist-hover-icon')
    const regularIcon = document.querySelector('.wishlist-regular-icon')
- 
+
 
    buttonWishlist.addEventListener('click', (event) => {
       const isNotAuthenticated = !browsingContext.Common.Shopper.IsAuthenticated
 
-      if(isNotAuthenticated){
+      if (isNotAuthenticated) {
          RTUtils.alert('error', 'Faça login para adicionar um produto à sua lista de desejos')
          return
       }
@@ -126,51 +126,67 @@ const initWishlistButton = () => {
 const initFloatInformation = () => {
    const information = document.querySelector('.ProductRoute .product-detail .information')
 
-   document.addEventListener('scroll', function(e) {
+   document.addEventListener('scroll', function (e) {
       const currentPosition = window.scrollY;
-      
-      if(currentPosition >= 200){
+
+      if (currentPosition >= 200) {
          information.classList.add('floating')
-      }else{
+      } else {
          information.classList.remove('floating')
       }
-    })
+   })
 }
 
- 
+
 const initVariationsHandler = () => {
    const firstVariations = [...document.querySelectorAll('.variation-group.first .options label input')]
    const options = document.getElementById('product-variations')
 
    firstVariations.map(variation => {
-      variation.addEventListener('click', function(e){
+      variation.addEventListener('click', function (e) {
          const variationPath = e.target.value
+         const subvariations = document.querySelector('.subvariation-group .options ')
          const skus = [...options.querySelectorAll(`div[class*="${variationPath}"]`)]
-        console.log(variationPath)
-        console.log(skus)
+         console.log(variationPath)
+         console.log(skus)
+         const listDisponibleSubvariations = []
 
          skus.map(sku => {
             const targetVariation = sku.id.split('|')[1]
             const canBeSold = sku.querySelector('.availability').value.toLowerCase() !== "o"
 
             const subvariation = document.getElementById(`${targetVariation}`)
-            const subvariationInput =  subvariation.querySelector('input')
+            const subvariationInput = subvariation.querySelector('input')
 
-            if(canBeSold){
+            console.log('subvariation')
+            console.log(subvariation)
+            console.log('subvariationInput')
+            console.log(subvariationInput)
+
+            subvariation.classList.remove('selected')
+            if (canBeSold) {
                subvariationInput.disabled = false
                subvariationInput.checked = false
                subvariation.classList.remove('disabled')
-            }else{
+               listDisponibleSubvariations.push(subvariation)
+            } else {
                subvariationInput.disabled = true
                subvariation.classList.add('disabled')
             }
-            
          })
+
+         if(listDisponibleSubvariations.length == 1){
+            console.log('-ww-f')
+            console.log(listDisponibleSubvariations[0])
+            listDisponibleSubvariations[0].click()
+         }else{
+
+         }
 
       })
    })
 
-   
+
 }
 
 const initBuyButton = () => {
@@ -182,8 +198,8 @@ const initBuyButton = () => {
 
       let firstVariation = document.querySelector('.variation-group input:checked')
       let secondVariation = document.querySelector('.subvariation-group input:checked')
-      
-      if(firstVariation && secondVariation){
+
+      if (firstVariation && secondVariation) {
          firstVariation = firstVariation.value
          secondVariation = secondVariation.value
 
@@ -192,12 +208,12 @@ const initBuyButton = () => {
 
          RTUtils
             .addToCart(
-               product.ProductID, 
-               sku.value, 
+               product.ProductID,
+               sku.value,
                1
             )
 
-      }else{
+      } else {
          RTUtils.alert('error', 'Selecione todas as variações')
       }
 

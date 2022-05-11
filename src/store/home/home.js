@@ -44,7 +44,7 @@ const fillQuickLinks = () => {
             response.forEach(item => {
                 const quickLink = RTUtils.createElement('a', null, 'quicklink__item')
                 quickLink.text = item.item
-                quickLink.href = item.link
+                quickLink.href = `${browsingContext.Common.Urls.BaseUrl + item.link}`
 
                 $quickLinks.append(quickLink)
             })

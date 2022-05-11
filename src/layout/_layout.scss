@@ -67,6 +67,12 @@ h2.swal2-title {
     padding: 0;
 }
 
+@media screen and (max-width: $medium) {
+    #footer, #header, #middle {
+        min-width: 100%;
+    }
+}
+
 .rt-title{
     font-size: 20px;
     text-align: left;
@@ -106,7 +112,6 @@ h2.swal2-title {
 .wd-product-line{
     width: 400px;
     margin: 0 20px;
-    // height: 600px;
 
     .medias {
         position: relative;
@@ -239,14 +244,20 @@ h2.swal2-title {
             .sale-price .prefix{
                 display: none;
             }
+
+            .savings{
+                display: none;
+            }
         }
     }
+
+    
 
 }
 
 
-#footer{
-    height: 500px;
-    margin-top: 80px;
-    background: #F8F8F8;
+.wd-browsing-grid-pager  {
+    .prev, .next{
+        cursor: pointer;
+    }
 }
