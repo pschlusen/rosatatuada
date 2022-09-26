@@ -24,9 +24,23 @@ const handleBasketChange = () => {
     })
 }
 
-(function(){
+const handleDeliveryAndCoupon = () => {
+    const elements = [...document.querySelectorAll('.container-options-cart > div > .header')]
+
+    elements.map( element => {
+        element.addEventListener('click', (event) => {
+            const parent = event.target.closest('.wd-widget')
+            const content = parent.querySelector('.content')
+            const title = parent.querySelector('.header .title')
+
+            $(content).toggleClass('active')
+            $(title).toggleClass('active')
+        })
+    })
+}
+
+document.addEventListener('DOMContentLoaded', function(){
     getQuantityOfItemsOnCart()
     handleBasketChange()
-    
-
-})()
+    handleDeliveryAndCoupon()
+})

@@ -25,10 +25,57 @@ const facetHandler = () => {
 
 }
 
-(function(){
-    facetHandler()
+const facetHandlerMobile = () => {
+    const buttonApplyFilters = document.getElementById('applyFiltersOnShelf')
+    const buttonOpenFilters = document.getElementById('openFilterOnShelf')
+    const filterContainer = document.querySelector('.container--filters')
 
-    $(document).ajaxComplete( () => {
-        facetHandler()
+    buttonApplyFilters.addEventListener('click', (event) => {
+        filterContainer.classList.remove('active')
     })
-})()
+
+    buttonOpenFilters.addEventListener('click', (event) => {
+        filterContainer.classList.add('active')
+    })
+}
+
+const handleFixedFacets = () => {
+    const facets = document.querySelector('.container--facets')
+
+    document.addEventListener('scroll', () => {
+        const documentScrolled = window.scrollY > 150
+
+        if(documentScrolled){
+            facets.classList.add('fixed')
+        }
+        else{
+            facets.classList.remove('fixed')
+        }   
+    })
+    
+}
+
+const slickFullbannerCategory = () =>{
+    const fullbanner = document.querySelector('.fullbanner--category .wd-marketing-banner')
+
+    $(fullbanner).slick({
+        slidesToShow: 1,
+        dots: false,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 1800
+    })
+}
+
+
+document.addEventListener('DOMContentLoaded', function(){
+    facetHandler()
+    facetHandlerMobile()
+    handleFixedFacets()
+    slickFullbannerCategory()
+})
+
+$(document).ajaxComplete( () => {
+    facetHandler()
+    facetHandlerMobile()
+})

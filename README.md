@@ -20,7 +20,7 @@ saída para `./dist`. Ou seja, os arquivos de produção estarão em `./dist`.
 ## 🌎 Servindo um arquivo
 Este projeto utiliza o [Browsersync](https://browsersync.io/ "Browsersync") para servir arquivos localmente.
 
-Imagine que você crie/altere o seguinte arquivo `./src/cart/cart.css`. A task default do gulp será executada e o arquivo processado sairá em `./dist/cart/cart.css`, desta forma você poderá acessar o arquivo desta forma:
+Imagine que você crie/altere o seguinte arquivo `./src/cart/cart.scss`. A task default do gulp será executada e o arquivo processado sairá em `./dist/cart/cart.css`, desta forma você poderá acessar o arquivo desta forma:
 - http://localhost:3000/cart/cart.css
 
 Ou adicioná-lo ao HTML da página

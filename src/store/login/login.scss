@@ -37,15 +37,15 @@ div.row.login-box{
     height: 560px;
 }
 
-.painel-wrapper {
-    margin: auto;
-    width: 400px;
-    height: 60px;
-}
 
 .painel-wrapper {
+    height: 60px;
     width: 400px;
     margin: 0 auto;
+
+    @media screen and (max-width: $medium){
+        width: 100%;
+    }
 }
 
 form div.input-wrapper label{
@@ -89,6 +89,10 @@ div#jasoucliente{
         font-size: 17px;
         font-weight: bold;
         margin-bottom: 50px;
+
+        @media screen and (max-width: $medium){
+            text-align: center;
+        }
     }
 
 }
@@ -113,48 +117,37 @@ div.col.col-lg-12.col-12.login-oauth{
     display: none;
 }
 
-@media (max-width: $small ) {
+@media (max-width: $medium ) {
     form div.input-wrapper .password{
-        width: 92vw;
-        padding: 16px;
-        font-size: 18px;
+        width: 100%;
+        padding: 15px 15px 5px 15px;
     }
     form div.input-wrapper .email{
-        width: 92vw;
-        padding: 15px;
+        width: 100%;
+        padding: 15px 15px 5px 15px;
     }
-    div#jasoucliente{
-        h2{
-            font-size: 22px;
-        }      
-    }
+    
     div.input-wrapper #widget75-submit {
-        width: 100vw;
-        height: 64px;
-        font-size: 25px;
+        width: 100%;
+        height: 50px;
+        line-height: 20px;
     }
     form div.input-wrapper label {
         font-size: 20px;
         width: 65px;
     }
-    a.js-login-recoverpassword.recover-password {
-        font-size: 22px;
-    }
 }
-@media (max-width: $very-small ) {
-    div#jasoucliente h2 {
-        font-size: 29px;
-    }
-    div.input-wrapper #widget75-submit{
-        font-size: 30px;
-    }    
-}
+
 
 .wd-profile-login{
     .input-wrapper{
         margin-top: 30px;
         padding-bottom: 10px;
         width: 400px;
+
+        @media screen and (max-width: $medium){
+            width: 100%;
+        }
 
         input{
             border: 0;
@@ -216,5 +209,11 @@ div.col.col-lg-12.col-12.login-oauth{
         font-weight: 700;
         border: 1px solid $black;
         line-height: 60px;
+
+        @media screen and (max-width: $medium){
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+        }
     }
 }

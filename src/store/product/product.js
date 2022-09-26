@@ -3,20 +3,26 @@ const initDeliverySimulation = () => {
    const input = document.getElementById('PostalCode')
    const iconInputChecked = document.querySelector('.delivery-simulation .minicon')
 
+   
+   $(input).mask('99999-999')
 
-   $(input).mask('99999-999', {
-      onKeyPress: function (cep, e, field, options) {
-         const isFilled = cep.length == 9
 
-         if (isFilled) {
-            iconInputChecked.classList.add('checked')
-            button.removeAttribute('disabled')
-         } else {
-            iconInputChecked.classList.remove('checked')
-            button.setAttribute('disabled', true)
-         }
-      }
-   })
+   // $(input).mask('99999-999', {
+   //    onKeyPress: function (cep, e, field, options) {
+   //       const isFilled = cep.length == 9
+
+   //       console.log(cep.length)
+
+   //       if (isFilled) {
+   //          iconInputChecked.classList.add('checked')
+   //          button.removeAttribute('disabled')
+   //       } else {
+   //          iconInputChecked.classList.remove('checked')
+   //          button.setAttribute('disabled', true)
+   //       }
+   //    }
+   // })
+
 
    const mountSimulation = (cep) => {
       RTUtils
@@ -34,10 +40,25 @@ const initDeliverySimulation = () => {
    }
 
    input.addEventListener('keyup', (e) => {
-      console.log(e.key)
+      const readValue = e.target.value
+      const cep = readValue.replaceAll('_', '')
+      const isFilled = cep.trim().length == 9
+
+      
+      console.log(cep)
+      console.log(isFilled)
+
+      if (isFilled) {
+         iconInputChecked.classList.add('checked')
+         button.removeAttribute('disabled')
+      } else {
+         iconInputChecked.classList.remove('checked')
+         button.setAttribute('disabled', true)
+      }
+
       if (e.key === 'Enter' || e.keyCode === 13) {
-         const cep = e.target.value
-         const isFilled = cep.trim().length == 9
+         // const cep = e.target.value
+         // const isFilled = cep.trim().length == 9
 
          if (isFilled) {
             mountSimulation(cep)
@@ -124,21 +145,79 @@ const initWishlistButton = () => {
 }
 
 const initFloatInformation = () => {
-   const information = document.querySelector('.ProductRoute .product-detail .information')
+   if(!RTUtils.isMobileMobileScreen()){
+      const information = document.querySelector('.ProductRoute .product-detail .information')
 
-   document.addEventListener('scroll', function (e) {
-      const currentPosition = window.scrollY;
+      document.addEventListener('scroll', function (e) {
+         const currentPosition = window.scrollY;
 
-      if (currentPosition >= 200) {
-         information.classList.add('floating')
-      } else {
-         information.classList.remove('floating')
-      }
-   })
+         if (currentPosition >= 200) {
+            information.classList.add('floating')
+         } else {
+            information.classList.remove('floating')
+         }
+      })
+   }
 }
 
 
-const initVariationsHandler = () => {
+const variationsHandlerB2B = () => {
+   let currentColor
+   const colors = [...document.querySelectorAll('.subvariation-group label')]
+
+   colors.forEach(color => {
+      color.addEventListener('click', event => {
+         currentColor = color.id
+         const options = document.querySelectorAll(`#product-variations div[class*="${currentColor}"]`)
+
+         options.forEach(option => {
+            const value = option.dataset.value
+            const sizeId = option.id.split('|')[0].replace('.', '-')
+
+            const labelOption = document
+                              .querySelector(`.variation-options .variation-group label.var-group-${sizeId}`)
+            
+            const sizeOption = labelOption.querySelector('.quantity--selector__value')
+            sizeOption.innerText = value
+         })
+      })
+   })
+
+
+
+   const quantityButtons = [...document.querySelectorAll('.quantity--selector button')]
+
+   quantityButtons.forEach(button => {
+      button.addEventListener('click', event => {
+         const isUnavailable = button.closest('label.unavailable')
+         if(isUnavailable) return
+
+         const operation = button.innerText
+         const size = button.closest('label').querySelector('input').value
+         const variation = document.getElementById(`${size}|${currentColor}|`)
+         
+
+         const field = button.parentElement.querySelector('.quantity--selector__value')
+         let currentValue = Number(field.innerText)
+
+         switch(operation){
+            case '-':
+               field.innerText = (currentValue - 1 < 0) ? 0 : --currentValue
+               break
+            case '+':
+               field.innerText = ++currentValue
+               break
+            default:
+               return
+         }
+
+         variation.dataset.value = currentValue
+         
+      })
+   })
+}
+
+const variationsHandlerB2C = () => {
    const firstVariations = [...document.querySelectorAll('.variation-group.first .options label input')]
    const options = document.getElementById('product-variations')
 
@@ -147,21 +226,14 @@ const initVariationsHandler = () => {
          const variationPath = e.target.value
          const subvariations = document.querySelector('.subvariation-group .options ')
          const skus = [...options.querySelectorAll(`div[class*="${variationPath}"]`)]
-         console.log(variationPath)
-         console.log(skus)
          const listDisponibleSubvariations = []
 
          skus.map(sku => {
             const targetVariation = sku.id.split('|')[1]
             const canBeSold = sku.querySelector('.availability').value.toLowerCase() !== "o"
 
-            const subvariation = document.getElementById(`${targetVariation}`)
+            const subvariation = document.querySelector(`label.var-group-${targetVariation.replace('.', '-')}`)
             const subvariationInput = subvariation.querySelector('input')
-
-            console.log('subvariation')
-            console.log(subvariation)
-            console.log('subvariationInput')
-            console.log(subvariationInput)
 
             subvariation.classList.remove('selected')
             if (canBeSold) {
@@ -176,8 +248,6 @@ const initVariationsHandler = () => {
          })
 
          if(listDisponibleSubvariations.length == 1){
-            console.log('-ww-f')
-            console.log(listDisponibleSubvariations[0])
             listDisponibleSubvariations[0].click()
          }else{
 
@@ -185,7 +255,15 @@ const initVariationsHandler = () => {
 
       })
    })
+}
 
+const initVariationsHandler = () => {
+   const isB2C = RTUtils.getChannel() == 'b2c'
+
+   if(isB2C)
+      variationsHandlerB2C()
+   else
+      variationsHandlerB2B()
 
 }
 
@@ -220,12 +298,33 @@ const initBuyButton = () => {
    })
 }
 
+const slickMedias = () => {
+   if(RTUtils.isMobileMobileScreen()){
+      $('.medias .wd-product-media-selector-mobile ').slick(
+         {
+            slidesToShow: 1, 
+            slidesToScroll:1, 
+            arrows: true, 
+            dots: false,
+            prevArrow: `
+            <button type="button" class="slick-prev">
+                <img src="/custom/content/themes/Shared/Templates/general/images/left-arrow-basic.png" />
+            </button>`,
+            nextArrow: `
+            <button type="button" class="slick-next">
+                <img src="/custom/content/themes/Shared/Templates/general/images/right-arrow-basic.png" />
+            </button>`
+         }
+      )
+   }
+}
 
 
-(function () {
+document.addEventListener('DOMContentLoaded', function(){
    initDeliverySimulation()
    initWishlistButton()
    initFloatInformation()
    initVariationsHandler()
    initBuyButton()
-})()
+   slickMedias()
+})

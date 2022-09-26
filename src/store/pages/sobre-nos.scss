@@ -1,0 +1,168 @@
+@import '../../layout/breakpoints';
+
+.container--sobreNos {
+   padding-bottom: 100px;
+
+   .fullbanner {
+      box-sizing: border-box;
+      padding-left: 100px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      background-image: url(https://rosatatuada.core.dcg.com.br/Custom/Content/Themes/Moda/Templates/paginas-rodape/images/fullbanner-sobre-nos.jpg);
+      background-position-x: right;
+      background-position-y: top;
+      background-size: 72%;
+      background-repeat: no-repeat;
+
+      @media screen and (max-width: $medium) {
+         background-image: none;
+         padding: 0;
+         padding: 40px 20px;
+         text-align: center;
+      }
+
+      .fullbanner--title {
+         font-size: 18px;
+         margin: 0;
+
+         b {
+            font-style: italic;
+         }
+      }
+
+      h1 {
+         margin: 0;
+         margin-bottom: 40px;
+         margin-top: 20px;
+
+         img {
+            width: 180px;
+
+            @media screen and (max-width: $medium) {
+               width: 80%;
+            }
+         }
+      }
+
+      p {
+         max-width: 40%;
+         font-size: 15px;
+         text-align: left;
+
+         @media screen and (max-width: $medium) {
+            max-width: 100%;
+            text-align: center;
+            font-size: 12px;
+         }
+      }
+   }
+
+   .container--linha {
+      height: 400px;
+      width: 1200px;
+      background-color: #F5F5F5;
+      margin: 0 auto;
+      margin-top: 160px;
+      position: relative;
+      padding: 40px;
+
+      @media screen and (max-width: $medium) {
+         width: 95%;
+         border-radius: 5px;
+         padding: 20px;
+         height: 680px;
+      }
+
+      h3,
+      p {
+         width: 50%;
+         text-align: left;
+
+         @media screen and (max-width: $medium) {
+            width: 100%;
+         }
+      }
+
+      h3 {
+         font-size: 20px;
+
+         b {
+            font-style: italic;
+         }
+      }
+
+      p {
+         font-size: 15px;
+      }
+
+      img {
+         width: 250px;
+         height: auto;
+         position: absolute;
+      }
+
+      &.container--linha__direita {
+         .image-1 {
+            top: -40px;
+            right: 200px;
+            z-index: 2;
+
+            @media screen and (max-width: $medium) {
+               top: initial;
+               right: initial;
+               left: -2.5vw;
+               bottom: 30px;
+            }
+         }
+
+         .image-2 {
+            bottom: -40px;
+            right: 42px;
+
+            @media screen and (max-width: $medium) {
+               bottom: -40px;
+               right: -2.5vw;
+               z-index: 3;
+            }
+         }
+      }
+
+      &.container--linha__esquerda {
+         div {
+            float: right;
+            width: 50%;
+
+            @media screen and (max-width: $medium){
+               float: none;
+               width: 100%;
+            }
+
+            h3,
+            p {
+               width: 100%;
+            }
+         }
+
+         .image-1 {
+            top: -40px;
+            left: 200px;
+
+            @media screen and (max-width: $medium) {
+               top: initial;
+               right: initial;
+               left: -2.5vw;
+               bottom: 30px;
+            }
+         }
+
+         .image-2 {
+            @media screen and (max-width: $medium) {
+               bottom: -40px;
+               right: -2.5vw;
+               z-index: 3;
+            }
+         }
+      }
+
+   }
+}

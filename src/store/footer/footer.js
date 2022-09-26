@@ -16,7 +16,7 @@ const successRegister = (response) => {
     }
 }
 
-const initFooter = () => {
+const initNewsletter = () => {
     const button = document.getElementById('btnAcceptNewsletter')
     const input = document.querySelector('.newsletter--container__footer .newsletter--input input')
 
@@ -34,9 +34,24 @@ const initFooter = () => {
 
 }
 
+const initInstitucionalHandler = () => {
+    if(RTUtils.isMobileMobileScreen()){
+        const titles = [...document.querySelectorAll('.container--institucional .plus-symbol')]
+
+        titles.map( title => {
+            title.addEventListener('click', (event) => {
+                const content = event.target.nextElementSibling
+                console.log(content)
+
+                event.target.classList.toggle('active')
+                content.classList.toggle('active')
+            })
+        } )
+    }
+}
 
 
-
-(function(){
-    initFooter()
-})()
+document.addEventListener('DOMContentLoaded', function(){
+    initNewsletter()
+    initInstitucionalHandler()
+})

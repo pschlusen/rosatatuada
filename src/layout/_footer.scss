@@ -1,27 +1,52 @@
 @import './_variables';
+@import './_breakpoints';
 
 #footer{
     margin-top: 100px;
     background: #FFF;
     position: relative;
-    z-index: 999999;
+    z-index: 9999;
     padding-top: 15px;
+
+    @media screen and (max-width: $medium){
+        margin-top: 0;
+    }
     
-    .footer--logo img {
-        width: 200px;
-        height: auto;
+    .footer--logo{
+        @media screen and (max-width: $medium){
+            text-align:center;
+            margin-top: 30px;
+        }
+
+        img {
+            width: 200px;
+            height: auto;
+            @media screen and (max-width: $medium){
+                width: 120px;
+            }
+        }
     }
 
     .footer--container {
-        margin-bottom: 50px;
-        width: 85%;
-        max-width: 100%;
+        @media screen and (min-width: $medium){
+            margin-bottom: 50px;
+            width: 85%;
+            max-width: 100%;
+        }
 
         .footer--socialNetwork {
             margin-top: 40px;
+
+            @media screen and (max-width: $medium){
+                text-align:center;
+            }
     
             div{
                 display: inline-block;
+                @media screen and (max-width: $medium){
+                    margin-left: 20px!important;
+                    margin-right: 20px!important;
+                }
     
                 &.right{
                     margin-left: 100px;
@@ -33,6 +58,10 @@
         
                     li{
                         list-style: none;
+
+                        @media screen and (max-width: $medium){
+                            text-align: left;
+                        }
         
                         a{
                             color: $black;
@@ -75,6 +104,12 @@
         .newsletter--container__footer{
             width: 500px;
             float: right;
+
+            @media screen and (max-width: $medium) {
+                width: 100%;
+                float: initial;
+                margin-top: 40px;
+            }
 
             *{
                 font-family: $font2;
@@ -141,10 +176,32 @@
             margin-top: 50px;
             float: right;
 
+            @media screen and (max-width: $medium){
+                float: none;
+            }
+
             div{
                 display: inline-block;
                 vertical-align: top;
                 margin-left: 40px;
+
+                @media screen and (max-width: $medium) {
+                    margin-left: 0;
+                    display: block;
+                    text-align: center;
+
+                    ul{
+                        overflow: hidden;
+                        max-height: 0;
+                        opacity: 0;
+                        transition: $transition;
+
+                        &.active{
+                            max-height: 999px;
+                            opacity: 1;
+                        }
+                    }
+                }
 
                 &.payment--methods{
                     margin: 0;
@@ -160,6 +217,17 @@
                 h3 {
                     font-size: 16px;
                     font-weight: bold;
+
+                    @media screen and (max-width: $medium){
+                        &.plus-symbol::after{
+                            content: "+";
+                            margin-left: 5px;
+                        }
+
+                        &.plus-symbol.active::after{
+                            content: "-";
+                        }
+                    }
                 }
 
                 ul{
@@ -182,12 +250,31 @@
         text-align: center;
         padding: 20px 0 40px;
 
+        @media screen and (max-width: $medium) {
+            padding: 20px 15px 40px;
+        }
+
         .footer--credits__item {
             display: inline-block;
             vertical-align: top;
             margin: 0 30px;
             text-align: left;
             height: auto;
+
+            @media screen and (max-width: $medium) {
+                margin: 0;
+
+                &.protarget{
+                    float: left;
+                }
+                &.linxcommerce{
+                    float: right;
+                }
+                &.lets-encrypt{
+                    width: 100%;
+                    text-align: left;
+                }
+            }
 
             span{
                 font-family: $font;

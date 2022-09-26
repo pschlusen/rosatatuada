@@ -1,4 +1,5 @@
 @import '../../../layout/_variables';
+@import '../../../layout/breakpoints';
 
 .CategoryRoute{
     #left, #right{
@@ -13,10 +14,36 @@
         display: none;
     }
 
+    @media screen and (min-width: $medium){
+        .fullbanner--category .wd-marketing-banner {
+            height: 320px;
+            overflow: hidden;
+        }
+    }
+
     .container--facets {
         padding-left: 55px;
         padding-right: 55px;
         margin-bottom: 10px;
+
+        @media screen and (max-width: $medium){
+            margin-bottom: 30px;
+        }
+
+        &.fixed {
+            position: fixed;
+            top: 116px;
+            z-index: 9999999;
+            left: 0;
+            right: 0;
+            background: #FFF;
+        }
+
+        @media screen and (max-width: $medium){
+            padding-left: 0;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
 
         .facets--container{
             position: relative;
@@ -32,15 +59,27 @@
             bottom: 14px;
             left: 0;
             z-index: 10;
+
+            @media screen and (max-width: $medium){
+                display:none;
+            }
         }
 
         .wd-facet-group{
             display: block;
+
+            @media screen and (max-width: $medium){
+                padding-top: 20px;
+            }
             
             .selected-facets{
                 background: $white;
                 border: 0;
                 margin-bottom: 0;
+
+                @media screen and (max-width: $medium){
+                    padding: 0 20px;
+                }
                 
                 &::before{
                     display: none;
@@ -61,6 +100,10 @@
                                 font-weight: normal;
                                 text-transform: capitalize;
                                 color: $black;
+
+                                @media screen and (max-width: $medium){
+                                    font-weight: bold;
+                                }
                             }
     
                             .clear-filter{
@@ -86,11 +129,33 @@
             padding-top: 0;
             padding-left: 120px;
 
+            @media screen and (max-width: $medium){
+                padding-left: 20px;
+
+                .facet-title{
+                    padding: 0!important;
+
+                    font-size: 15px!important;
+                    line-height: 40px;
+                    height: 40px;
+                }
+
+                h3{
+                    // font-size: 15px;
+                    line-height: 40px;
+                    height: 40px;
+                }
+            }
+
             .facet-type{
                 display: inline-block;
                 margin-right: 50px;
                 position: relative;
                 overflow: visible;
+
+                @media screen and (max-width: $medium){
+                    display: block;
+                }
 
                 ul{
                     position: absolute;
@@ -101,30 +166,64 @@
                     border: $soft-border;
                     padding: 20px;
                     margin-top: 10px;
-
-                    &::before{
-                        content: "";
-                        display: inline-block;
-                        border-left: 1px solid #cecece;
-                        border-top: 1px solid #cecece;
-                        width: 10px;
-                        height: 10px;
-                        background-color: #FFF;
-                        position: absolute;
-                        top: -6px;
-                        transform: rotate(45deg);
+                    
+                    @media screen and (max-width: $medium){
+                        position: initial;
+                        border: 0;
                     }
+
+                    @media screen and (min-width: $medium){
+                        &::before{
+                            content: "";
+                            display: inline-block;
+                            border-left: 1px solid #cecece;
+                            border-top: 1px solid #cecece;
+                            width: 10px;
+                            height: 10px;
+                            background-color: #FFF;
+                            position: absolute;
+                            top: -6px;
+                            transform: rotate(45deg);
+                        }
+                    }
+                    
 
                     .option-title,
                     .option-count{
                         color: $black;
                         font-size: 13px;
+
+                        @media screen and (max-width: $medium){
+                            font-size: 16px;
+                            display: inline-block;
+                            margin: 5px 0;
+                        }
+                    }
+
+                    @media screen and (max-width: $medium){
+                        li.selected {
+                            .option-title,
+                            .option-count{
+                                font-weight: bold;
+                            }
+    
+                            a{
+                                position: relative;
+                                &::after {
+                                    content: "x";
+                                    color: red;
+                                    top: 3px;
+                                    right: -15px;
+                                    position: absolute;
+                                    font-size: 19px;
+                                }
+                            }
+                        }
                     }
                 }
 
                 &.brand,
-                &.price,
-                &.category {
+                &.price{
                     display: none;
                 }
             }
@@ -147,25 +246,125 @@
                     border-bottom: 2px solid #000;
                     border-right: 2px solid #000;
                     position: absolute;
-                    top: calc(50% + 2px);
+                    top: 12px;
                     right: -20px;
                     transition: $transition;
-                    transform: translateY(-50%) rotate(-135deg);
+                    transform: rotate(-135deg);
                 }
 
                 &.facet-closed::after{
                     top: calc(50% - 2px);
                     transform: translateY(-50%) rotate(45deg);
+
+                    @media screen and (max-width: $medium){
+                        top: 11px;
+                        transform: rotate(45deg);   
+                    }
                 }
 
                 
             }
         }
+
+        @media screen and (max-width: $medium){
+            // .facets--control {
+            //     margin-top: 20px;
+            //     margin-bottom: 20px;
+            // }
+
+            
+            .shelf--control {
+                border: $soft-border;
+                width: 50%;
+                height: 35px;
+                text-align: center;
+                float: left;
+                cursor: pointer;
+                position: relative;
+
+                &#openFilterOnShelf{
+                    border-right: 0;
+                }
+
+                img {
+                    width: 15px;
+                    vertical-align: sub;
+                }
+
+                span {
+                    display: inline-block;
+                    vertical-align: sub;
+                    font-size: 13px;
+                }
+
+                .wd-browsing-grid-sorter{
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    right: initial;
+                    top: initial;
+                    width: 100%;
+                    opacity: 0;
+
+                    select{
+                        height: 35px;
+                        width: 100%;
+                    }
+
+                    > span{
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .container--filters {
+            @media screen and (max-width: $medium){
+                background: $white;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 9999;
+                display: none;
+                opacity: 0;
+                transition: $transition;
+
+                @media screen and (max-width: $medium){
+                    &.active{
+                        display: block;
+                        opacity: 1;
+                    }
+                }
+            }
+            #applyFiltersOnShelf{
+                display: none;
+
+                @media screen and (max-width: $medium){
+                    display:inline-block;
+                    background-color: $black;
+                    position: absolute;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 80%;
+                    border: $border;
+                    font-size: 13px;
+                    color: $white;
+                    font-family: $font2;
+                    height: 40px;
+                    text-transform: uppercase;
+                }
+            }
+        }
     }
 
     .grid--area {
-        padding-left: 50px;
-        padding-right: 50px;
+        @media screen and (min-width: $medium){
+            padding-left: 50px;
+            padding-right: 50px;
+        }
 
         .grid--area__container{
             padding-left: 0;
@@ -177,12 +376,21 @@
                 font-size: 27px;
                 padding-left: 20px;
                 font-family: $font2;
+
+                @media screen and (max-width: $medium){
+                    margin-bottom: 0;
+                }
             }
 
             .wd-product-line {
                 margin: 0 20px;
                 width: calc(100% - 40px);
                 height: auto!important;
+
+                @media screen and (max-width: $medium){
+                    margin: 0 5px;
+                    width: calc(100% - 10px);
+                }
             }
 
             .wd-facet-group{
@@ -230,6 +438,10 @@
                         position: absolute;
                         right: 20px;
                         top: 0;
+
+                        @media screen and (max-width: $medium){
+                            display:none;
+                        }
                     }
                 }
         
@@ -241,18 +453,31 @@
 
                         li{
                             margin-top: 40px;
+                            @media screen and (max-width: $medium){
+                                width: 50%;
+
+                            }
 
                             .name {
                                 padding: 0;
                                 min-height: 20px!important;
-                                height: 20px;
+                                height: 30px;
                                 overflow: hidden;
+
+                                @media screen and (max-width: $medium){
+                                    font-size: 12px;
+                                    height: 35px;
+                                }
 
                                 a{
                                     color: $soft-grey;
                                     font-size: 14px;
                                     text-align: center;
                                     display: block;
+
+                                    @media screen and (max-width: $medium){
+                                        font-size: 12px;
+                                    }
                                 }
                             }
 
@@ -274,8 +499,12 @@
 
        span{
         font-family: $font;
-        font-size: 20px;
-        color: $black;
+        font-size: 20px!important;
+        color: $black!important;
+
+        @media screen and (max-width: $medium){
+            font-size: 15px!important;
+        }
        }
     }
 

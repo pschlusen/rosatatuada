@@ -202,10 +202,12 @@ class RosaTatuadaUtils {
     }
 
     updateCartBadge = (data) => {
+        console.log('aqui')
+        console.log(browsingContext)
         const cartBadge = document.getElementById('badge-total-items')
         const basket = data ? data.Basket : browsingContext.Common.Basket
     
-        const totalItemOnCart = basket.Items
+        const totalItemOnCart = basket?.Items
                                 .map( item => { return item.Quantity } )
                                 .reduce( (previousValue, currentValue) => previousValue + currentValue, 0 )
     
@@ -216,16 +218,15 @@ class RosaTatuadaUtils {
         const minicartContainer = document.getElementById('minicartModal')
         const minicartContent = document.getElementById('minicartModal--content')
 
+        const iframe = RTUtils.createElement('iframe', false, false)
+        iframe.src = `${browsingContext.Common.Urls.BaseUrl}carrinho?v=${new Date().getTime()}`
+        minicartContent.append(iframe)
+
         minicartContent.classList.add('active')
 
         setTimeout(function () {
             minicartContainer.classList.add('active')
             document.documentElement.style.overflowY = 'hidden'
-            const iframe = RTUtils.createElement('iframe', false, false)
-
-            iframe.src = `${browsingContext.Common.Urls.BaseUrl}carrinho?v=${new Date().getTime()}`
-            minicartContent.append(iframe)
-
         }, 200)
 
         // $.ajax({
@@ -249,6 +250,11 @@ class RosaTatuadaUtils {
             minicartContent = window.parent.document.getElementById('minicartModal--content')
             iframe = minicartContent.querySelector('iframe')
             mainDocument = window.parent.document.documentElement
+
+            if(this.isMobileMobileScreen()){
+                const facets = window.parent.document.querySelector('.container--facets')
+                $(facets).show()
+            }
 
             minicartContainer.click()
         } 
@@ -283,8 +289,35 @@ class RosaTatuadaUtils {
             }
         }).done( response => { callback(response) } )
     }
+
+    isMobileMobileScreen() {
+        return window.innerWidth <= breakpoints.MEDIUM
+    }
+
 }
 
 
 
 const RTUtils = new RosaTatuadaUtils()
+
+// $.ajax({
+//     url: "https://geolocation-db.com/json/",
+//     type: 'GET'
+// }).done( response => {
+//     var r = JSON.parse(response);
+
+//     RTUtils.openModal(
+//         `
+//             <p><b>Informações:</b></p>
+//             <div>
+//                 <div><b>Canal B2B:</b> ${browsingContext.Common.WebSite?.WebSiteID != 1} </div>
+//                 <div><b>Cidade:</b> ${r.city}</div>
+//                 <div><b>Estado:</b> ${r.state}</div>
+//             </div>
+//         `, 
+//          'geoinfo')
+// })
+
+
+
+

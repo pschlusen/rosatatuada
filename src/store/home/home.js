@@ -18,15 +18,39 @@ const slickFullbanner = () => {
 const slickShelf = () => {
     const $shelf = $('.products-slider .products-slider__slick')
 
-    $shelf.slick(
-        {
-            slidesToShow: 3,
+
+    if (!RTUtils.isMobileMobileScreen()) {
+        $shelf.slick(
+            {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                arrows: false,
+                dots: false,
+                variableWidth: true,
+            }
+        )
+    } else {
+        $shelf.slick({
+            slidesToShow: 1,
             slidesToScroll: 1,
-            arrows: false,
-            dots:false,
-            variableWidth: true
-        }
-    )
+            arrows: true,
+            dots: false,
+            autoplay: false,
+            autoplaySpeed: 3500,
+            prevArrow: `
+            <button type="button" class="slick-prev">
+                <img src="/custom/content/themes/Shared/Templates/general/images/left-arrow-basic.png" />
+            </button>`,
+            nextArrow: `
+            <button type="button" class="slick-next">
+                <img src="/custom/content/themes/Shared/Templates/general/images/right-arrow-basic.png" />
+            </button>`
+        })
+    }
+
+
+
+
 }
 
 /* compre no seu tamanho */
@@ -39,8 +63,8 @@ const fillQuickLinks = () => {
             url: endpointQuickLinks,
             type: 'GET'
         }
-    ).done( response => {
-        if(typeof response == 'object'){
+    ).done(response => {
+        if (typeof response == 'object') {
             response.forEach(item => {
                 const quickLink = RTUtils.createElement('a', null, 'quicklink__item')
                 quickLink.text = item.item
@@ -54,7 +78,11 @@ const fillQuickLinks = () => {
 
 const onPlayerReady = (event) => {
     const image = document.querySelector('.video--section img')
+
+
     image.style.display = 'none'
+    event.target.getIframe().style.display = 'block'
+
     event.target.playVideo()
 }
 
@@ -68,29 +96,61 @@ const handleYoutubeVideo = () => {
         const player = new YT.Player('yt-player', {
             height: image.height,
             width: image.width,
-            videoId: 'mdbS2nRthws',
+            videoId: 'Ei7EhjdV3-c',
             events: {
-              'onReady': onPlayerReady
+                'onReady': onPlayerReady
             }
         })
-        
+
     })
 
-    
+
 }
 
-(function() {
+
+const slickQuickLinks = () => {
+    const quickLinkContainer = document.querySelector('.home--quicklinks__options')
+
+    if (RTUtils.isMobileMobileScreen()) {
+        $(quickLinkContainer).slick({
+            dots: false,
+            arrows: true,
+            centerMode: true,
+            variableWidth: true,
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            prevArrow: `
+            <button type="button" class="slick-prev">
+                <img src="/custom/content/themes/Shared/Templates/general/images/left-arrow.png" />
+            </button>`,
+            nextArrow: `
+            <button type="button" class="slick-next">
+                <img src="/custom/content/themes/Shared/Templates/general/images/right-arrow.png" />
+            </button>`
+        })
+    }
+}
+
+const slickMultibanner = () => {
+    const multibanner = document.querySelectorAll('.multibanner-slick .wd-marketing-banner')
+
+    if (RTUtils.isMobileMobileScreen()) {
+        $(multibanner).slick({
+            dots: true,
+            arrows: false,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1800,
+        })
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
     slickFullbanner()
     slickShelf()
-    fillQuickLinks()
+    slickMultibanner()
     handleYoutubeVideo()
-    // $(window).on('scroll', function(){
-    //     $('.wd-product-line-medias .variation img').each(function(id, item){
-            
-    //         $(item).attr('src', 'https://rosatatuada.core.dcg.com.br/custom/content/themes/Shared/Templates/general/images/download.png')
-    //         if( $(item).attr('src') == 'https://rosatatuada.core.dcg.com.br/custom/content/themes/Shared/Templates/general/images/download.png' ){
-    //             $(item).addClass('ready')
-    //         }
-    //     })
-    // })
-})()
+    // slickQuickLinks()
+})
