@@ -1,0 +1,337 @@
+{% comment %}
+Estrutura do detalhe do produto
+{% endcomment %}
+
+<script>
+	var product = {{ Product | json }};
+</script>
+
+<style>
+	.product-detail .head .information .wd-product-bundle .wd-title{
+		display:none;
+	}
+	{% if Product.ProductDefinitionID == 16 %}
+	.medias .wd-product-medias .wd-product-media-selector ul li {
+		display: block!important;
+	}
+	{% endif %}
+	
+	.product-detail .head .information .detalhes .wd-product-variations .options label.selected {
+		box-shadow: 0 0 1px 2px var(--color-primary);
+	}
+</style>
+
+{% assign hasCenterColumn = false %}
+{% if Product.JoinCollection.Items.size > 0 %}
+{% assign hasCenterColumn = true %}
+{% elsif Product.Items.size > 2 %}
+{% assign hasCenterColumn = true %}
+{% endif %}
+
+{% if Querystring.v != null %}
+	{% capture paramv %}ProductID == {{ Querystring.v }}{% endcapture %}
+	{% assign skuv = Product.Items | where: paramv | firstordefault %}
+
+	{% assign price = skuv.RetailPrice %}
+{% else %}
+	{% assign price = Product.RetailPrice %}
+{% endif %}
+
+{% comment %} 
+DADOS ESTRUTURADOS PRODUCT 
+{% endcomment %}
+
+{% if Querystring.v != null %}
+	{% capture paramv %}ProductID == {{ Querystring.v }}{% endcapture %}
+	{% assign skuv = Product.Items | where: paramv | firstordefault %}
+
+	{% assign price = skuv.RetailPrice %}
+{% else %}
+	{% assign price = Product.RetailPrice %}
+{% endif %}
+
+<script type="application/ld+json" id="ld-json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "{{Product.Name}}",
+	
+	{% if Product.Medias.size > 0 %}
+	"image": [
+		{% assign count = 0 %}
+		{% for media in Product.Medias%}
+			{% if media.MediaSizeType == "Large" %}
+			{% if count == 0 %}{%else%},{%endif%}
+    		"{{media.MediaPath | contentpath}}"
+				{% assign count = count | plus:1 %}
+			{% endif %}			
+		{% endfor %}
+		],
+	{% endif %}	
+	
+	"description": "{{Product.PageTitle | striphtml | stripnewlines}}",
+	"brand": {
+        "@type": "Brand",
+		"name": "{{Product.BrandName}}",
+		"url": "{{Urls.FullBaseUrl}}marcas/{{Product.BrandUrl}}",
+        "image": "{{ '/Images/Brands/' | sharedthemepath}}{{Product.BrandUrl}}.png"
+    },
+	"category": "{{Product.LeafCategoryName | htmlentities}}",
+    "sku": "{{Product.ProductID}}",
+	"mpn": "{{Product.SKU}}",
+	"url": "{{PageInfo.CanonicalLink}}",
+	{% if Product.ReviewCount > 0 %}
+    "aggregateRating": {
+        "@type": "AggregateRating",
+		"bestRating": "5",
+        "ratingValue": "{{Product.RatingAverage}}",
+        "reviewCount": "{{Product.ReviewCount}}"
+    },
+	{% product_reviews(Template=~/Custom/Content/Themes/Shared/Custom/wd.product.reviews.json.template)%}
+	{% endif %}
+	"offers": {
+        "@type": "Offer",
+        "availability": "http://schema.org/InStock",
+		"price": "{{ price | formatcurrency:"en-US" | replace: '\$', '' | replace: ',', '' }}",
+		"priceCurrency": "BRL",
+		"priceValidUntil":"{{'d/MM/yyyy' | datetimenow}}",
+		"url": "{{PageInfo.CanonicalLink}}"
+    }
+}
+</script>
+
+<div class="product-detail">
+	<!-- Chaordic TOP -->
+	<div linx-banner="top"> </div>
+	<div chaordic="top"></div>
+	<article>
+
+		{% capture jsoptions %}{ "productId":"{{ Product.ProductID }}", "unavailableText":"" }{% endcapture %}
+		<div class="head row">
+			<div class="medias col col-lg-7 col-md-6  col-12">
+				<button id="add-wishlist">
+					<a><i class="far fa-heart"></i><i class="fas fa-heart"></i></a>
+				</button>
+				{% product_flags with Context DependsOn:Product,Product:Product %}
+				{%if Request.IsMobileDevice == false%}
+					{% product_medias(jshandler=ProductMedias,UseHierarchy=true) %}
+				{% else %}															
+				 {% product_medias_selector(jshandler=ProductMediasSelector, Template="/widgets/product.medias.selector-mobile/wd.product.medias.selector-mobile.template", jsoptions="{ datasource: MediaSelectorDS}")%}
+				{% endif %}
+			</div>
+			
+			
+			<!-- INFORMATION -->
+			<div class="information col col-lg-5 col-md-6 col-12">
+				
+				<div class="row">
+					<h1 class="col col-12 name" itemprop="name">{{ Product.Name }}</h1>
+					<span class="product-reference">REF.: {{Product.SKU}}</span>
+				</div>
+				
+				<div class="row {% if hasCenterColumn == false %}no-gutters{% endif %}">
+					<div class="col detalhes {% if Product.ProductTypeID != 7 and hasCenterColumn %}col-lg-12 col-md-12 {% endif %} col-12">
+						<div class="row variations">				
+							{% if Product.ProductTypeID == 7 %}
+							{% product_bundle(WidgetTitle="Itens do KIT", ShowPhoto=true) %}
+							{% else %}				
+							{% product_variations(jsoptions:jsoptions,jshandler="ProductVariations", ShowAllVariations=true) %}
+							{% endif %}					
+						</div>
+						
+						<div class="row price">
+							{% product_price %}
+						</div>
+
+						<div class="row gift">
+							{% product_gift() %}
+						</div>
+
+						
+					</div>
+					{% unless Product.ProductTypeID == 7 %}
+					<div class="col {% if hasCenterColumn %}col-lg-12 col-md-12{% endif %} col-12 buy">
+						<div class="row buy-box">				
+							
+							
+							{% product_uponrequest %}
+							
+							{% assign BuyButtonTextBuyLabel = "Comprar" %}
+							
+							<div class="col-12">
+								{% product_buybutton(jsoptions:jsoptions,TextAccountLink="Compre com 1 click", OneClickBuyProvider="braspag",UIMustValidated=true,) with Context DependsOn:Product %}
+								{% product_notifymewhenavailable(jshandler="ProductNotifymeWhenAvailable") %}
+							</div>
+
+							<div class="col-12">
+								{% product_wishlist(AutoCreateWishlist=true) %}	
+							</div>
+								
+						</div>
+						<div class="row buy-info">
+							{% if Product.HasAnyItemDeliverable == true %}
+							<div class="col col-lg-7 col-md-12 col-12 delivery">
+								<div class="wd-product-deliveryfee">
+									
+									<input type="tel" name="PostalCode" id="PostalCode" class="postalcode-masked valid" value="" maxlength="9" size="9" placeholder="Calcule seu frete" aria-required="true" aria-invalid="false">				
+									<button type="submit" title="Calcule o frete">Calcular</button> 			
+									
+									<div class="error-delivery">
+
+									</div>
+								</div>			
+							</div>
+							{% endif %}
+							<div class="col col-lg-5 col-md-12 col-12 payment">
+
+								{% product_payment_options_v2 %}
+
+							</div>
+							<div class="col-lg-12 col-12 delivery-box hide">
+								<div id="delivery-formas">
+								</div>
+							</div>
+						</div>							
+					</div>
+					{% endunless %}
+				</div>
+			</div>			
+		</div>
+		<div class="row descriptions">
+			{%if Request.IsMobileDevice == false%}
+			{% product_descriptions(DisplayType="tab-style",jshandler=ProductDescriptions) %}
+			{%else%}
+			{% product_descriptions(DisplayType="list-style",jshandler=ProductDescriptions) %}
+			{%endif%}
+		</div>
+		<!-- Chaordic MIDDLE -->
+		<div linx-banner="middle"></div>
+		<div chaordic="middle"></div>
+		<div class="row associations">
+			{% product_associations(jshandler="ProductAssociations") %}
+		</div>
+		<!-- Chaordic BOTTOM -->
+		<div linx-banner="bottom"></div>
+		<div chaordic="bottom"></div>
+		<div class="row reviews">
+			{% product_reviews(WidgetTitle="Reviews",Type="list",TextNoRatings="Seja o primeiro a avaliar este produto",PageSize=3,TextRateLink="Avaliar",DisplayEmail:false,TextRateSymbol="Corações",TextLabelName="Nome:",TextLabelEmail="Email:",TextLabelTitle="Título:",TextLabelReviewBody="Comentário:",TextLabelCaptchaText="Código:",TextButtonSubmit="Enviar review",JsHandler="ProductReviews",JsOptions="{messages: {success: 'Enviado com sucesso!',error: 'Ocorreram erros!'}}") %}
+		</div>
+
+		{% comment %}
+		<div class="produto-flutuante no-medium hide">
+			<div class="wrapper">
+				<div class="row">
+					<div class="col col-8 media">
+						{% assign mediaThumb = Product.Medias | where: 'MediaSizeType="Thumbnail"' | first %}
+						<img src="{{ mediaThumb.MediaPath  | contentpath}}" alt="{{ Product.Name }}">
+						<div class="name">{{ Product.Name | truncate: 80 }}</div>
+					</div>				
+					<div class="col col-4 button">
+						{% product_price %}
+						{% product_buybutton(jsoptions:jsoptions,TextAccountLink="Compre com 1 click",TextBuyLabel:BuyButtonTextBuyLabel,ButtonOneClickBuyAvailable=true,OneClickBuyProvider="braspag",UIMustValidated=true, ButtonOneClickBuyLoginInModal=true,BasketInModal=false) with Context DependsOn:Product %}
+					</div>
+				</div>
+			</div>			
+		</div>
+		{% endcomment %}
+		
+		<div id="formas-de-entrega" class="hide">
+			<button class="btn-close">
+				<i class="fas fa-times"></i>
+			</button>
+			<ul class="title">
+				<li>Tipo de entrega</li>
+				<li>Preço</li>
+				<li>Prazo</li>
+			</ul>
+			{% raw %}
+			<ul style="display: flex; flex-direction: column;" class="content">
+				{{#each deliveryMethods}}
+				<li>
+					<h6>{{ Name }}</h6>
+					<h6>{{ formatMoney Amount }}</h6>
+					<h6>{{  EstimatedUnit }}</h6>
+				</li>
+				{{/ each}}
+			</ul>
+			{% endraw %}
+		</div>
+	</article>
+</div>
+<script>
+	
+	$(function() {
+							
+
+		Handlebars.registerHelper("formatMoney", function(data){
+			return numeral(parseFloat(data)).format('R$ 0,0.00')
+		});
+
+		Handlebars.registerHelper("formatJuros", function(data){
+			if(data == "0") {
+				return 'Sem juros';
+			}
+			else {
+				return data + '%';
+			}
+		});
+
+		$(".wd-product-deliveryfee .button-wrapper button").on("click", function () {
+			var skuId = $(".wd-buy-button form input[name='Products[0].SkuID']").val();
+			if(skuId == "") {
+				var skuId = $(".wd-buy-button form input[name='Products[0].ProductID']").val();
+			}
+			var productId = $(".wd-buy-button form input[name='Products[0].ProductID']").val();
+
+			var postalCode = $(".wd-product-deliveryfee .input-wrapper #PostalCode").val();
+			if(postalCode == "") {
+				$(".error-delivery").html("<span>Digite um CEP válido!</span>");
+				$(".delivery-box").addClass("hide");
+				$(".error-delivery").removeClass("hide");
+			}
+			else {
+				$(".error-delivery").addClass("hide");
+				$.ajax({
+					url: browsingContext.Common.Urls.BaseUrl + 'widget/product_deliveryfee?ProductID=' + productId + '&SkuID='+ skuId + '&PostalCode=' + postalCode + '&Template=~/custom/content/themes/Base/Templates/contexto.template&nocache=5351427189&latitude=0&longitude=0',
+					type: 'get',
+					dataType: 'json',
+					beforeSend: function () {
+						$('.wd-product-deliveryfee').addClass('loading');
+					}
+				}).done(function (response) {
+					$('.wd-product-deliveryfee').removeClass('loading');
+					if(response.Response.Errors.length) {
+						$("#delivery-formas").html(response.Response.Errors[0].ErrorMessage);
+					}
+					else {
+						var deliveryMethods = [];
+						var source = $("#formas-de-entrega").html();
+						var template = Handlebars.compile(source);
+						$.each(response.Groups, function(k,i){
+							$.each(i.DeliveryOptions, function(j,l){
+								if(i.Alias != "list") {
+									l.Name = i.Name
+								}
+								deliveryMethods.push(l);
+							});
+						});	
+						var html = template({
+							deliveryMethods: deliveryMethods
+						});
+					}
+					$("#delivery-formas").html(html);
+					if($(".pagamento-box").hasClass( "foo" ) != true) {
+						$(".pagamento-box").addClass("hide");
+					}
+					$(".delivery-box").removeClass("hide");
+					$(".delivery-box .btn-close").on("click", function(){
+						$(".delivery-box").addClass("hide");
+					});
+				}).always(function () {
+					$('body').removeClass('loading');
+				});
+			}
+
+		});
+	});
+</script>

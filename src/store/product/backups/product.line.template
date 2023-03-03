@@ -1,0 +1,122 @@
+{% unless (ProductLineWidgetId) %}
+{% capture ProductLineWidgetId %}
+id="{{ Widget.Id }}"
+{% endcapture %}
+{% endunless %}
+
+{% capture jsoptions %}{ "productId":"{{ Product.ProductID }}" }{% endcapture %}
+<div {{ ProductLineWidgetId }} class="wd-product-line" data-brand="{{ Product.BrandName }}" data-name="{{ Product.Name }}" data-category="{{ Product.RootCategoryName }}" data-product-id="{{ Product.ProductID }}" data-pid="{{ Product.ProductID }}">
+		
+	<div class="medias">
+		
+		
+		{% if !Product.Price.BestInstallment.RetailPrice %}
+			{% assign bestPrice = Product.Price.BestInstallment.RetailPrice %}
+		{% elseif !Product.Price.BestInstallment.RetailPrice %}
+			{% assign bestPrice = Product.Price.BestInstallment.RetailPrice %}
+		{% else %}
+			{% assign bestPrice = Product.Price.SalesPrice %}
+		{% endif %}
+		
+		{% comment %}
+			{% if Product.ListPrice != bestPrice %}
+				{% capture promoPrice %}{{ bestPrice | percent:Product.ListPrice, 1 }}{%endcapture%}
+				{% capture finalValue %}{{ promoPrice | formatnumber:"en-US" }}{%endcapture%}
+
+				{% assign splitedPrice = finalValue | split:'.'%}
+				{% assign decimalValue = finalValue | todecimal %}
+
+				{% if splitedPrice[0] >= 10 %}
+				<div class="flag off" title="-{{ splitedPrice[0] }}%">{{ splitedPrice[0] }}% <strong>OFF</strong></div>
+				{% endif %}
+			{% endif %}
+		{% endcomment %}
+		
+		{% unless Widget.HideFlags %}
+			{% product_flags with Context DependsOn:Product,Product:Product %}
+		{% endunless %}
+		
+		<div class="container-medias-variation">
+			{% product_line_medias(jsoptions:jsoptions, HoverImage=true,LazyLoad=true,Effect="fade",SizeType="Small",AutoStyles="true",StopOnSwap="false",Delay=0) %}
+		
+			<div class="product-line-variations-list">
+				{% product_line_medias_variations(jshandler=ProductLineMediasVariations, jsoptions:jsoptions, ShowOptions=true) %}
+
+				{% for firstVariation in Product.Items %}
+					{% for secondVariation in firstVariation.Items %}
+						<input type="hidden" id="{{secondVariation.VariationPath}}" value="{{secondVariation.SKU}}"  />
+					{% endfor %}
+				{% endfor %}
+				
+				
+				
+			</div>
+		</div>
+		
+	</div>	
+	
+	<div class="item-description">
+		<h3 class="name">
+			<a href="{{ Product.Url }}">{{ Product.Name | truncate:55 }}</a>
+		</h3>
+		
+		
+				
+		{%if Product.Availability == 'I' or Product.Availability == 'B'%}
+		
+			{% capture ProductLineCrosssellID %}{{Product.ProductID}}{% endcapture %}
+			{% product_asyncprice(Skus:SKUID, ProductID:ProductLineCrosssellID) with context Product:Product %}
+		{%else%}
+			<p class="product-unavailable">Produto indisponível</p>
+		{%endif%}
+		
+		
+		
+				
+	</div>
+	
+	
+	
+{% comment %}
+	<div class="cross">
+		
+	{% capture jsoptions %}{ "productId":"{{ Product.ProductID }}" }{% endcapture %}
+
+	<div class="cross-sell-variations" data-variations='
+	{% assign UnavailableVariations = '' %}
+	{% assign items = Product.Items | where:'CatalogItemTypeID == 5' %}
+	{
+	{% for item in items %}
+		{% if item.Availability == "O" %}
+			{% capture UnavailableVariations %}{%if UnavailableVariations %}{{UnavailableVariations}},{% endif %}var{% for skuoption in item.SKUOptions %}|{{skuoption.PropertyMetadataID}}|{{skuoption.Value}}{% endfor %}{% endcapture %}
+		{% endif %}
+		"var{% for skuoption in item.SKUOptions %}|{{skuoption.PropertyMetadataID}}|{{skuoption.Value}}{% endfor %}": {
+			"SkuID": "{{item.ProductID}}",
+			"Availability": "{{item.Availability}}"
+		}
+		{% unless forloop.last %},{% endunless %}
+	{% endfor %}
+	{% assign UnavailableVariations = UnavailableVariations | split:',' %}
+	}
+	'>
+				<div class="cross-sell-variations-warning"><span class="icon"></span>Escolha uma op&ccedil;&atilde;o</div>
+				{% assign VariationID = 'var' %}
+				{% for option in Product.Options %}
+				{% capture VariationID %}{{VariationID}}|{{option.PropertyMetadataID}}{%endcapture%}
+				<select data-metadataid="{{option.PropertyMetadataID}}">
+					<option disabled="disabled" selected="selected" value="none">{{option.Label}}:</option>
+					{% for variation in option.values %}
+					{% capture ThisVariationID %}{{VariationID}}|{{ variation.OptionID }}{% endcapture %}
+					{% unless UnavailableVariations contains ThisVariationID %}
+					<option data-text="{{ variation.Text }}" value="{{ variation.OptionID }}" data-metadataid="{{option.PropertyMetadataID}}">{{ variation.Text }}</option>
+					{% endunless %}
+					{% endfor %}
+				</select>
+				{% endfor %}
+
+			</div>
+		</div>
+{% endcomment %}
+	
+	
+</div>

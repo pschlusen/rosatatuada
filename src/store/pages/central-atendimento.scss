@@ -1,0 +1,115 @@
+@import '../../layout/breakpoints';
+
+.central-de-atendimento{
+    .wd-browsing-feedback{
+        width: 700px;
+        margin: 0 auto;
+
+        @media screen and (max-width: $medium){
+            width: 100%;
+        }
+    }
+
+    h1 {
+        font-family: 'Josefin Sans', sans-serif;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 25px;
+        margin: 40px 0 70px;
+    }
+
+    fieldset{
+        .input-wrapper {
+            margin-bottom: 40px;
+        }
+
+        label, input{
+            display: block;
+        }
+
+        input, textarea{
+            font-size: 15px;
+            width: 100%;
+            outline: none;
+        }
+
+        textarea{
+            resize: none;
+            height: 200px;
+        }
+
+        label{
+            font-weight: bold;
+            font-size: 18px;
+            font-family: 'Josefin Sans', sans-serif;
+
+            @media screen and (max-width: $medium){
+                font-size: 14px;
+            }
+        }
+
+        input{
+            border: 0;
+            border-bottom: 1px solid #000;
+            outline: none;
+        }
+
+        button {
+            border: 2px solid #000;
+            width: 150px;
+            height: 40px;
+            text-transform: uppercase;
+            font-weight: bold;
+            
+            &.bt-submit{
+                color: #FFF;
+                background-color: #000;
+                width: 200px;
+                border-radius: 2px;
+                transition: all .3s ease;
+                &:hover{
+                    color: #000;
+                    background-color: #FFF;
+                }
+            }
+
+            &.bt-clear{
+                display: none;
+            }
+        }
+    }
+
+    .themodal-overlay{
+        z-index: 999999999999;
+    }
+
+    div#mainModal {
+        width: 400px;
+        height: 200px;
+        border-radius: 5px;
+
+        .alert {
+            color: #000;
+            background-color: transparent;
+            border: none;
+            text-align: center;
+            font-size: 18px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .close{
+            background-color: #000;
+            opacity: 1;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            text-align: center;
+            line-height: 34px;
+            top: 5px;
+            right: 5px;
+        }
+    }
+}
