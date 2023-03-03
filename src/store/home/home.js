@@ -79,7 +79,6 @@ const fillQuickLinks = () => {
 const onPlayerReady = (event) => {
     const image = document.querySelector('.video--section img')
 
-
     image.style.display = 'none'
     event.target.getIframe().style.display = 'block'
 
@@ -88,15 +87,18 @@ const onPlayerReady = (event) => {
 
 /* manipula o video */
 const handleYoutubeVideo = () => {
-    var button = document.querySelector('.video--section img')
+    const button = document.querySelector('.video--section img')
+    const video = browsingContext.Common.Config.General.Store.Field2
 
     button.addEventListener('click', (e) => {
+        if(!video) return
+        
         var image = e.target
 
         const player = new YT.Player('yt-player', {
             height: image.height,
             width: image.width,
-            videoId: 'Ei7EhjdV3-c',
+            videoId: video,
             events: {
                 'onReady': onPlayerReady
             }

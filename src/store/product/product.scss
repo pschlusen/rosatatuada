@@ -137,6 +137,10 @@
                 height: 100%;
                 padding-bottom: 50px;
                 z-index: 10;
+
+                @media screen and (min-width: $medium) {
+                    top: 120px;
+                }
             }
 
             .name{
@@ -167,6 +171,16 @@
             .variations{
                 margin-top: 50px;
                 .wd-product-variations {
+
+                    @media screen and (max-width: $medium){
+                        .type-color-pallete{
+                            text-align: center;
+                            .options {
+                                display: inline-block;
+                            }
+                        }
+                    }
+                    
                     .options{
                         @media screen and (max-width: $medium){
                             text-align: center;

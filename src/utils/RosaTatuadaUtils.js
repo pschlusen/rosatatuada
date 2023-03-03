@@ -1,17 +1,18 @@
 class RosaTatuadaUtils {
     constructor() {
         if (typeof $ != 'function') {
-            throw 'jQuery não inicializado'
+            throw '[RosaTatuadaUtils] jQuery não inicializado'
         }
     }
 
+    /* classes pode ser uma string ou um array */
     createElement(element, id, classes) {
         let _element = null
         // const { element, id, classes } = options
 
         element ?
-            _element = document.createElement(element) :
-            _element = document.createElement('div')
+            _element = document.createElement(element) 
+            : _element = document.createElement('div')
 
         if (id) {
             _element.id = id
@@ -273,6 +274,9 @@ class RosaTatuadaUtils {
             minicartContainer.classList.remove('active')
             mainDocument.style.overflowY = 'initial'
             minicartContent.innerHTML = ""
+            
+            const facets = document.querySelector('.container--facets')
+            facets.show()
         }, 200)
     }
 

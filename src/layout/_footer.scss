@@ -43,6 +43,7 @@
     
             div{
                 display: inline-block;
+                vertical-align: top;
                 @media screen and (max-width: $medium){
                     margin-left: 20px!important;
                     margin-right: 20px!important;

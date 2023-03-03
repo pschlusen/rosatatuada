@@ -33,10 +33,11 @@
         &.fixed {
             position: fixed;
             top: 116px;
-            z-index: 9999999;
+            z-index: 20; /*9999999*/
             left: 0;
             right: 0;
             background: #FFF;
+            padding-top: 10px;
         }
 
         @media screen and (max-width: $medium){
